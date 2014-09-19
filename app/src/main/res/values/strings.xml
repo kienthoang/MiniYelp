@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">MiniYelp</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="find">Find nearby restaurants</string>
+    <string name="city">City</string>
+    <string name="categories">Categories</string>
+    <string name="cost">Cost</string>
+    <string name="time">Time</string>
     <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
 
 </resources>
