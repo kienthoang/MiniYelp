@@ -1,4 +1,4 @@
-package com.android.teamasia.miniyelp;
+package com.android.teamasia.miniyelp.database;
 
 /**
  * Created by kienhoang on 9/20/14.

@@ -1,9 +1,9 @@
-package com.android.teamasia.miniyelp;
+package com.android.teamasia.miniyelp.database;
 
 /**
  * Created by rameel on 9/20/14.
  */
-public class RestaurantCategories {
+public class RestaurantsCategories {
     private long restaurantId;
     private long categoryId;
 
