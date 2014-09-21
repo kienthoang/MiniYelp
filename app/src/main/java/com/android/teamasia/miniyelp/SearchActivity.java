@@ -39,11 +39,14 @@ public class SearchActivity extends ActionBarActivity {
     private List<EditText> categoryList = new ArrayList<EditText>();
     private String timeDay;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        InputParser once = new InputParser(this);
+        once.parseInputBlock("InputFile");
         TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
 
@@ -111,7 +114,17 @@ public class SearchActivity extends ActionBarActivity {
         Log.d("user input test", cityName + "\n" + Arrays.toString(catArr) + "\n"
         + cost + "\n" + timeDay + ", " + hour + ":" + minute);
 
-        testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
+        //testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
+        RestaurantTable rtb = new RestaurantTable(this);
+        rtb.open();
+        List<Restaurant> resList = rtb.getAllRestaurants();
+        rtb.close();
+        for (Restaurant restaurant:resList) {
+            Log.d("test Res Parser", restaurant.getId() + "," + restaurant.getName() + ", "
+                    + restaurant.getCity() + ", " + restaurant.getStreet() + ", "
+                    + restaurant.getRank() + ", " + restaurant.getCost() + "\n");
+        }
+
     }
 
     private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
