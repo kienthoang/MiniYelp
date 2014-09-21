@@ -103,6 +103,16 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
                 ReviewerTable.COLUMN_NAME));
     }
 
+    /*
+    * Returns the database in use
+    * */
+
+     public long getDatabaseSize(){
+         long size = getReadableDatabase().getPageSize();
+         close();
+         return size;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         createRestaurantTable(database);

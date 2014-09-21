@@ -31,6 +31,7 @@ import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
 import com.android.teamasia.miniyelp.database.RestaurantTime;
 import com.android.teamasia.miniyelp.database.RestaurantTimesTable;
+import com.android.teamasia.miniyelp.database.MiniYelpSQLiteHelper;
 import com.android.teamasia.miniyelp.database.RestaurantsCategoriesTable;
 
 
@@ -45,9 +46,11 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        InputParser once = new InputParser(this);
-        once.parseInputBlock("InputFile");
+        MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
+        if(miniyelp.getDatabaseSize() <= 0) {
+            InputParser once = new InputParser(this);
+            once.parseInputBlock("InputFile");
+        }
         TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
 
