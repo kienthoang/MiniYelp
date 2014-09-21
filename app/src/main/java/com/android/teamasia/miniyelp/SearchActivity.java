@@ -110,39 +110,33 @@ public class SearchActivity extends ActionBarActivity {
         Log.d("user input test", cityName + "\n" + Arrays.toString(catArr) + "\n"
         + cost + "\n" + timeDay + ", " + hour + ":" + minute);
 
-        Restaurant res = new Restaurant();
-
         testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
     }
 
     private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
 
-        Restaurant res = new Restaurant();
-        Restaurant res2 = new Restaurant();
-        res.setCity(cityName);
-        res.setCost(cost);
-        res.setName("res1");
-        res.setRank(1);
-        res.setStreet("");
-        res.setCity(cityName);
-        res.setCost(cost + 1);
-        res.setName("res2");
-        res.setRank(2);
-        res.setStreet("");
-        RestaurantTime rt = new RestaurantTime();
-        rt.setDay(day);
-        rt.setStartTime(time);
-        rt.setEndTime(time + 100);
-        RestaurantTable rtb = new RestaurantTable(this);
-        rtb.open();
-        rtb.createRestaurant(res);
-        rtb.createRestaurant(res2);
-        rtb.close();
-        List<Restaurant> list = rtb.getAllRestaurants();
-        Log.d("Res1", list.get(0).getId() + "," + list.get(0).getName() + ", "
-                + list.get(0).getCity() + ", " + list.get(0).getCost() + "\n");
-        Log.d("Res2", list.get(1).getId() + "," + list.get(1).getName() + ", "
-                + list.get(1).getCity() + ", " + list.get(1).getCost());
+        Restaurant res = new Restaurant("", cityName, 1, cost, "res1");
+        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2");
+
+        try {
+//        RestaurantTime rt = new RestaurantTime();
+//        rt.setDay(day);
+//        rt.setStartTime(time);
+//        rt.setEndTime(time + 100);
+            RestaurantTable rtb = new RestaurantTable(this);
+            rtb.open();
+            rtb.createRestaurant(res);
+            rtb.createRestaurant(res2);
+            rtb.close();
+            List<Restaurant> list = rtb.getAllRestaurants();
+            Log.d("test Res1", list.get(0).getId() + "," + list.get(0).getName() + ", "
+                    + list.get(0).getCity() + ", " + list.get(0).getCost() + "\n");
+            Log.d("test Res2", list.get(1).getId() + "," + list.get(1).getName() + ", "
+                    + list.get(1).getCity() + ", " + list.get(1).getCost());
+        } catch (Exception e) {
+            Log.e("test Res error", e.toString());
+            e.printStackTrace();
+        }
     }
 
     @Override

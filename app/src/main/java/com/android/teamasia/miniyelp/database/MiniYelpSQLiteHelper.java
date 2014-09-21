@@ -34,11 +34,14 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      * @param database The database.
      */
     public void createRestaurantsCategoriesTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER FOREIGN KEY, " +
-                                       "%s INTEGER FOREIGN KEY)",
+        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER FOREIGN KEY " +
+                                       "%s REFERENCE, " +
+                                       "%s INTEGER FOREIGN KEY %s REFERENCE)",
                 RestaurantsCategoriesTable.TABLE_NAME,
                 RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
-                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID));
+                CategoryTable.COLUMN_ID,
+                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
+                RestaurantTable.COLUMN_ID));
     }
 
     /**

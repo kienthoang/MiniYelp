@@ -6,6 +6,18 @@ package com.android.teamasia.miniyelp.database;
 public class Restaurant {
     private long id;
     private String street;
+    private String city;
+    private int rank;
+    private int cost;
+    private String name;
+
+    // !!!empty constructor still needed
+    public Restaurant() {
+        street = "";
+        city = "";
+        rank = 0;
+        name = "";
+    }
 
     public Restaurant(String street, String city, int rank, int cost, String name) {
         this.street = street;
@@ -14,11 +26,6 @@ public class Restaurant {
         this.cost = cost;
         this.name = name;
     }
-
-    private String city;
-    private int rank;
-    private int cost;
-    private String name;
 
     public String getStreet() {
         return street;
