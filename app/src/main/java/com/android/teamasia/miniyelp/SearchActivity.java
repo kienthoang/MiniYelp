@@ -34,6 +34,7 @@ import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
 import com.android.teamasia.miniyelp.database.RestaurantTime;
 import com.android.teamasia.miniyelp.database.RestaurantTimesTable;
+import com.android.teamasia.miniyelp.database.MiniYelpSQLiteHelper;
 import com.android.teamasia.miniyelp.database.RestaurantsCategoriesTable;
 
 
@@ -51,16 +52,12 @@ public class SearchActivity extends ActionBarActivity {
         setContentView(R.layout.activity_search);
 
         final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
-        InputParser once = new InputParser(this);
 
         MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
         if(miniyelp.getDatabaseSize() <= 0) {
             InputParser once = new InputParser(this);
             once.parseInputBlock("InputFile");
         }
-
-        TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
-        timePicker.setIs24HourView(true);
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.time_picker_checkBox);
         checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
