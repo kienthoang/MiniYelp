@@ -7,7 +7,7 @@ public class Restaurant {
     private long id;
     private String street;
     private String city;
-    private int rank;
+    private double rank;
     private int cost;
     private String name;
 
@@ -19,7 +19,7 @@ public class Restaurant {
         name = "";
     }
 
-    public Restaurant(String street, String city, int rank, int cost, String name) {
+    public Restaurant(String street, String city, double rank, int cost, String name) {
         this.street = street;
         this.city = city;
         this.rank = rank;

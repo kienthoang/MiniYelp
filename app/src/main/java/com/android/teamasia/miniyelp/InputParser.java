@@ -36,20 +36,20 @@ public class InputParser {
             File inputFile = new File(block);
             Scanner sc = new Scanner(inputFile);
             // variables
-            int rank =0;
-            String cost = "" ;
+            double rank =0;
+            int cost = 0 ;
             ArrayList<String> opening = new ArrayList<String>();
             String name= "";
             String street=  "";
-            ArrayList<String> cateogory = new ArrayList<String>();
-            String reviewers;
+            ArrayList<String> category = new ArrayList<String>();
+            String reviewers="";
             String city= "";
 
             //database table
-            CategoryTable categorytable = new CategoryTable(context);
-            RestaurantTable resturanttable = new RestaurantTable(context);
-            RestaurantTimesTable resturanttimetable = new RestaurantTimesTable(context);
-            RestaurantsCategoriesTable rescattable = new RestaurantsCategoriesTable(context);
+            CategoryTable categorytable = new CategoryTable();
+            RestaurantTable resturanttable = new RestaurantTable();
+            RestaurantTimesTable resturanttimetable = new RestaurantTimesTable();
+            RestaurantsCategoriesTable rescattable = new RestaurantsCategoriesTable();
 
 
             // check for the end of the text file
@@ -64,13 +64,13 @@ public class InputParser {
                     //rank
 
                     if(variable.equals("ra")){
-                        rank =  Integer.parseInt(currentline.substring(currentline.indexOf(" ")+1, currentline.length()));
+                        rank =  Double.parseDouble(currentline.substring(currentline.indexOf(" ")+1, currentline.length()));
 
                     }
                     //cost
                     else if(variable.equals("co")){
-                        cost =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-
+                        //cost =  Integer.currentline.substring(currentline.indexOf(" ")+1, currentline.length());
+                        cost = count(currentline);
                     }
 
                     // opening hours
@@ -91,11 +91,11 @@ public class InputParser {
                         name =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
                     }
 
-                    // cateogory
+                    // category
                     else if(variable.equals("ca")){
                         String first = currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        String[] cateogory1 = first.split(",");
-                        cateogory = convert(cateogory1);
+                        String[] category1 = first.split(",");
+                        category = convert(category1);
                     }
 
                     // reviewers
@@ -109,55 +109,83 @@ public class InputParser {
                     }
                 }
                 else{
-
-                    System.out.println("End of the block");
-
                     //create a new resturant
-
-                    // !!!type error in Restaurant and Category
-                    // !!!Check the type of cost
-                    Restaurant temp = new Restaurant(street, city, rank, Integer.parseInt(cost), name);
-                    //System.out.println(street +"  " + city +  "   " + rank + " " + cost + "  " + name);
+                    resturanttable.open();
+                    Restaurant temp = new Restaurant(street, city, rank, cost, name);
+                    ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
 
                     //add resutrant to resturantable
                     Restaurant add  = resturanttable.createRestaurant(temp);
-
-                    // add all category to category table and also add to resturant-cateogory table
-                    for(String s: cateogory){
-                        System.out.println(s);
-                        //!!! no 'i' for this for loop. Use s instead
-                        Category temp2 = new Category(s);
-                        Category temp1 = categorytable.createCategory(temp2);
+                    resturanttable.close();
+                    // add all category to category table and also add to resturant-category table
+                    categorytable.open();
+                    rescattable.open();
+                    for(String s: category){
+                        Category temp = new Category(category[i]);
+                        Category temp1 = categorytable.createCategory(temp);
                         RestaurantsCategories restcat = new RestaurantsCategories(add.getId(), temp1.getId());
                         rescattable.createRestaurantsCategories(restcat);
                     }
-//    
-//    // also update the opening hours to opening hours table
+                    categorytable.close();
+                    rescattable.close();
+
+                     // also update the opening hours to opening hours table
+                    resturanttimetable.open();
                     for( String e: opening){
                         String[] hours = e.split(" ");
                         String start = hours[1].substring(0, hours[1].indexOf(":"))+ hours[1].substring(hours[1].indexOf(":")+1, hours[1].length());
                         String end = hours[2].substring(0, hours[2].indexOf(":"))+ hours[2].substring(hours[2].indexOf(":")+1, hours[2].length());
-//      
-                        //System.out.println( hours[0] + "  " + start + "  " + end);
-                        resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end)));
+//
+                        resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end));
                     }
+                    resturanttimetable.close();
 
 
 
                 }
 
             }
+            resturanttable.open();
+            Restaurant temp = new Restaurant(street, city, rank, cost, name);
+            ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
+
+            //add restuarant to resturantable
+            Restaurant add  = resturanttable.createRestaurant(temp);
+            resturanttable.close();
+            // add all category to category table and also add to resturant-category table
+            categorytable.open();
+            rescattable.open();
+            for(String s: category){
+                Category temp = new Category(category[i]);
+                Category temp1 = categorytable.createCategory(temp);
+                RestaurantsCategories restcat = new RestaurantsCategories(add.getId(), temp1.getId());
+                rescattable.createRestaurantsCategories(restcat);
+            }
+            categorytable.close();
+            rescattable.close();
+
+            // also update the opening hours to opening hours table
+            resturanttimetable.open();
+            for( String e: opening){
+                String[] hours = e.split(" ");
+                String start = hours[1].substring(0, hours[1].indexOf(":"))+ hours[1].substring(hours[1].indexOf(":")+1, hours[1].length());
+                String end = hours[2].substring(0, hours[2].indexOf(":"))+ hours[2].substring(hours[2].indexOf(":")+1, hours[2].length());
+//
+                resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end));
+            }
+            resturanttimetable.close();
+
         }
 
 
 
         catch(IOException e){
-            System.out.println("fuck yourself");
+            System.out.println("NoFileFound");
         }
 
     }
 
-    // seperate string by delimeter
+    // convert arrary of string into arraylist of string
     public static ArrayList<String> convert(String[] str){
         ArrayList<String> list = new ArrayList<String>();
         for( int i =0; i < str.length; i++){
@@ -166,6 +194,14 @@ public class InputParser {
         return list;
     }
 
+    // count the number of dollar sign in the string
+    public static int count(String st){
+        int count =0;
+        for(int i=0; i< st.length() ;i++){
+            if(st.charAt(i) == '$') count++;
+        }
+        return count;
+    }
 
 
 }
