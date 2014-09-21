@@ -69,7 +69,7 @@ public class RestaurantTable {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(cursor.getLong(0));
         restaurant.setName(cursor.getString(1));
-        restaurant.setRank(cursor.getInt(2));
+        restaurant.setRank(cursor.getDouble(2));
         restaurant.setCost(cursor.getInt(3));
         restaurant.setStreet(cursor.getString(4));
         restaurant.setCity(cursor.getString(5));
