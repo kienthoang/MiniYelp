@@ -46,10 +46,10 @@ public class InputParser {
             String city= "";
 
             //database table
-            CategoryTable categorytable = new CategoryTable();
-            RestaurantTable resturanttable = new RestaurantTable();
-            RestaurantTimesTable resturanttimetable = new RestaurantTimesTable();
-            RestaurantsCategoriesTable rescattable = new RestaurantsCategoriesTable();
+            CategoryTable categorytable = new CategoryTable(context);
+            RestaurantTable resturanttable = new RestaurantTable(context);
+            RestaurantTimesTable resturanttimetable = new RestaurantTimesTable(context);
+            RestaurantsCategoriesTable rescattable = new RestaurantsCategoriesTable(context);
 
 
             // check for the end of the text file
@@ -121,8 +121,8 @@ public class InputParser {
                     categorytable.open();
                     rescattable.open();
                     for(String s: category){
-                        Category temp = new Category(category[i]);
-                        Category temp1 = categorytable.createCategory(temp);
+                        Category temp2 = new Category(s);
+                        Category temp1 = categorytable.createCategory(temp2);
                         RestaurantsCategories restcat = new RestaurantsCategories(add.getId(), temp1.getId());
                         rescattable.createRestaurantsCategories(restcat);
                     }
@@ -136,7 +136,7 @@ public class InputParser {
                         String start = hours[1].substring(0, hours[1].indexOf(":"))+ hours[1].substring(hours[1].indexOf(":")+1, hours[1].length());
                         String end = hours[2].substring(0, hours[2].indexOf(":"))+ hours[2].substring(hours[2].indexOf(":")+1, hours[2].length());
 //
-                        resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end));
+                        resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end)));
                     }
                     resturanttimetable.close();
 
@@ -156,8 +156,8 @@ public class InputParser {
             categorytable.open();
             rescattable.open();
             for(String s: category){
-                Category temp = new Category(category[i]);
-                Category temp1 = categorytable.createCategory(temp);
+                Category temp2 = new Category(s);
+                Category temp1 = categorytable.createCategory(temp2);
                 RestaurantsCategories restcat = new RestaurantsCategories(add.getId(), temp1.getId());
                 rescattable.createRestaurantsCategories(restcat);
             }
@@ -171,7 +171,7 @@ public class InputParser {
                 String start = hours[1].substring(0, hours[1].indexOf(":"))+ hours[1].substring(hours[1].indexOf(":")+1, hours[1].length());
                 String end = hours[2].substring(0, hours[2].indexOf(":"))+ hours[2].substring(hours[2].indexOf(":")+1, hours[2].length());
 //
-                resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end));
+                resturanttimetable.createRestaurantTime(new RestaurantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end)));
             }
             resturanttimetable.close();
 
