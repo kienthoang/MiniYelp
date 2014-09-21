@@ -94,7 +94,7 @@ public class SearchActivity extends ActionBarActivity {
         Button removeButton = (Button) findViewById(R.id.remove_button);
         // remove excessive lines of category.
         removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Overrides
             public void onClick(View v) {
                 if (categoryList.size() > 1) {
                     LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
