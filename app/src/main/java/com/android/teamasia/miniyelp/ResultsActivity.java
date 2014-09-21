@@ -20,6 +20,7 @@ public class ResultsActivity extends ActionBarActivity {
     public static final String EXTRA_COST = "com.android.teamasia.miniyelp.cost";
     public static final String EXTRA_DAY = "com.android.teamasia.miniyelp.day";
     public static final String EXTRA_TIME = "com.android.teamasia.miniyelp.hour";
+    public static final String EXTRA_SEARCH_BY_TIME = "com.android.teamasia.miniyelp.search_time";
 
 
     @Override
