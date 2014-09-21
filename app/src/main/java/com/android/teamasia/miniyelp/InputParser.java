@@ -46,7 +46,7 @@ public class InputParser {
             String name= "";
             String street=  "";
             ArrayList<String> category = new ArrayList<String>();
-            String reviewers="";
+            int reviewers=0;
             String city= "";
 
             //database table
@@ -104,7 +104,7 @@ public class InputParser {
 
                     // reviewers
                     else if(variable.equals("re")){
-                        reviewers =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
+                        reviewers =  Integer.parseInt(currentline.substring(currentline.indexOf(" ")+1, currentline.length()));
                     }
 
                     //city
@@ -115,7 +115,7 @@ public class InputParser {
                 else{
                     //create a new resturant
                     resturanttable.open();
-                    Restaurant temp = new Restaurant(street, city, rank, cost, name);
+                    Restaurant temp = new Restaurant(street, city, rank, cost, name, reviewers);
                     ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
 
                     //add resutrant to resturantable
@@ -150,7 +150,7 @@ public class InputParser {
 
             }
             resturanttable.open();
-            Restaurant temp = new Restaurant(street, city, rank, cost, name);
+            Restaurant temp = new Restaurant(street, city, rank, cost, name, reviewers);
             ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
 
             //add restuarant to resturantable
