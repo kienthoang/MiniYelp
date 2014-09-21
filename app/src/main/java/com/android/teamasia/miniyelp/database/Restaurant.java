@@ -6,6 +6,15 @@ package com.android.teamasia.miniyelp.database;
 public class Restaurant {
     private long id;
     private String street;
+
+    public Restaurant(String street, String city, int rank, int cost, String name) {
+        this.street = street;
+        this.city = city;
+        this.rank = rank;
+        this.cost = cost;
+        this.name = name;
+    }
+
     private String city;
     private int rank;
     private int cost;

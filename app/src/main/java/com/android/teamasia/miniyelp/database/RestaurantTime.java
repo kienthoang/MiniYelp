@@ -9,6 +9,13 @@ public class RestaurantTime {
     private int startTime;
     private int endTime;
 
+    public RestaurantTime(long restaurantId, String day, int startTime, int endTime) {
+        this.restaurantId = restaurantId;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public long getRestaurantId() {
         return restaurantId;
     }
