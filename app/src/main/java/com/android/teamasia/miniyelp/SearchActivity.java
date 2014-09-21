@@ -7,9 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import java.util.Calendar;
 import java.util.List;
@@ -27,9 +30,18 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
+
         context = this.getApplicationContext();
+
+        // spinner
+        Spinner spinner = (Spinner) findViewById(R.id.daySpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.day_array, android.R.layout.simple_spinner_item);
+
+
         // add the first item into the category list
         categoryList.add((EditText) findViewById(R.id.category_item));
         Button addButton =(Button) findViewById(R.id.add_button);
@@ -63,7 +75,13 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     public void startQuery(View view) {
-
+        String cityName = ((EditText) findViewById(R.id.cityName)).toString();
+        String[] catArr = new String[categoryList.size()];
+        for (int i = 0; i < catArr.length; i++) {
+            catArr[i] = categoryList.get(i).toString();
+        }
+        int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
+//        String timeDay =
     }
 
     @Override

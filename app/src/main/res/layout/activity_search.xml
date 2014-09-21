@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"/>
             <EditText
+                android:id = "@+id/cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/city_hint" />
@@ -96,6 +97,7 @@
                 android:text="@string/day"
                 android:textSize="24sp" />
             <Spinner
+                android:id="@+id/daySpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/day_array"
