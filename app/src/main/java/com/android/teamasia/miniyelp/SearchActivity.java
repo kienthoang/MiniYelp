@@ -54,11 +54,25 @@ public class SearchActivity extends ActionBarActivity {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
 
         MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
-        if(miniyelp.getDatabaseSize() <= 0) {
-            InputParser once = new InputParser(this);
-            once.parseInputBlock("InputFile");
-        }
+        Log.d("size", miniyelp.getDatabaseSize() + "");
+//        if(miniyelp.getDatabaseSize() <= (5*1024)) {
+//            InputParser once = new InputParser(this);
+//            once.parseInputBlock("InputFile");
+//        }
 
+        try{
+            RestaurantTable rt = new RestaurantTable(this);
+            rt.open();
+            List<Restaurant> rl = rt.getAllRestaurants();
+            if(rl.size() < 1){
+                InputParser once = new InputParser(this);
+                once.parseInputBlock("InputFile");
+            }
+        }
+        catch(NullPointerException e){
+//            InputParser once = new InputParser(this);
+//            once.parseInputBlock("InputFile");
+        }
         final CheckBox checkBox = (CheckBox) findViewById(R.id.time_picker_checkBox);
         checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton c, boolean b) {
@@ -123,28 +137,28 @@ public class SearchActivity extends ActionBarActivity {
                 }
             }
         });
-        Button searchButton = (Button) findViewById(R.id.search_button);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
-                String[] catArr = new String[categoryList.size()];
-                for (int i = 0; i < catArr.length; i++) {
-                    catArr[i] = categoryList.get(i).getText().toString();
-                }
-                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
-                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
-                int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
-                Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
-                i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
-                i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
-                i.putExtra(ResultsActivity.EXTRA_COST, cost);
-                i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
-                i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
-                i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
-                startActivity(i);
-            }
-        });
+//        Button searchButton = (Button) findViewById(R.id.search_button);
+//        searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
+//                String[] catArr = new String[categoryList.size()];
+//                for (int i = 0; i < catArr.length; i++) {
+//                    catArr[i] = categoryList.get(i).getText().toString();
+//                }
+//                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
+//                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
+//                int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
+//                Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
+//                i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
+//                i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
+//                i.putExtra(ResultsActivity.EXTRA_COST, cost);
+//                i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
+//                i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
+//                i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
+//                startActivity(i);
+//            }
+//        });
     }
 
     public void startQuery(View view) {
