@@ -22,11 +22,11 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      */
     public void createRestaurantTable(SQLiteDatabase database) {
         database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                                       "%s INTEGER, %s INTEGER, %s TEXT, %s TEXT)",
+                                       "%s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER)",
                 RestaurantTable.TABLE_NAME, RestaurantTable.COLUMN_ID,
                 RestaurantTable.COLUMN_NAME, RestaurantTable.COLUMN_RANK,
                 RestaurantTable.COLUMN_COST, RestaurantTable.COLUMN_STREET,
-                RestaurantTable.COLUMN_CITY));
+                RestaurantTable.COLUMN_CITY, RestaurantTable.COLUMN_REVIEWERS));
     }
 
     /**
@@ -81,28 +81,6 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
                 RestaurantTable.COLUMN_ID));
     }
 
-    /**
-     * Creates the review table.
-     * @param database The database.
-     */
-    public void createReviewTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                        "%s INTEGER FOREIGN KEY, %s INTEGER FOREIGN KEY)",
-                ReviewTable.TABLE_NAME, ReviewTable.COLUMN_ID,
-                ReviewTable.COLUMN_CONTENT, ReviewTable.COLUMN_RESTAURANT_ID,
-                ReviewTable.COLUMN_REVIEWER_ID));
-    }
-
-    /**
-     * Creates the reviewer table.
-     * @param database The database.
-     */
-    public void createReviewerTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT)",
-                ReviewerTable.TABLE_NAME, ReviewerTable.COLUMN_ID,
-                ReviewerTable.COLUMN_NAME));
-    }
-
     /*
     * Returns the database in use
     * */
@@ -129,8 +107,6 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantsCategoriesTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CategoryTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantTimesTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ReviewTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ReviewerTable.TABLE_NAME);
         onCreate(db);
     }
 }

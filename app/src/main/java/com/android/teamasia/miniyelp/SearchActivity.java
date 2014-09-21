@@ -188,8 +188,8 @@ public class SearchActivity extends ActionBarActivity {
 
     private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
 
-        Restaurant res = new Restaurant("", cityName, 1, cost, "res1");
-        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2");
+        Restaurant res = new Restaurant("", cityName, 1, cost, "res1", 3);
+        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2", 5);
 
         try {
 //        RestaurantTime rt = new RestaurantTime();
