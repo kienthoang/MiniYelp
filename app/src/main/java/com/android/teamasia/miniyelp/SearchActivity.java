@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -27,6 +29,7 @@ import android.util.Log;
 
 import com.android.teamasia.miniyelp.database.Category;
 import com.android.teamasia.miniyelp.database.CategoryTable;
+import com.android.teamasia.miniyelp.database.MiniYelpSQLiteHelper;
 import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
 import com.android.teamasia.miniyelp.database.RestaurantTime;
@@ -40,19 +43,35 @@ public class SearchActivity extends ActionBarActivity {
     private Context context;
     private List<EditText> categoryList = new ArrayList<EditText>();
     private String timeDay;
+    private boolean searchByTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
+
         MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
         if(miniyelp.getDatabaseSize() <= 0) {
             InputParser once = new InputParser(this);
             once.parseInputBlock("InputFile");
         }
-        TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
-        timePicker.setIs24HourView(true);
+
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.time_picker_checkBox);
+        checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton c, boolean b) {
+                if(checkBox.isChecked()) {
+                    timePicker.setVisibility(View.VISIBLE);
+                    searchByTime = true;
+                }
+                else {
+                    timePicker.setVisibility(View.INVISIBLE);
+                    searchByTime = false;
+                }
+            }
+        });
 
         context = this.getApplicationContext();
 
@@ -122,6 +141,7 @@ public class SearchActivity extends ActionBarActivity {
                 i.putExtra(ResultsActivity.EXTRA_COST, cost);
                 i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
                 i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
+                i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
                 startActivity(i);
             }
         });
