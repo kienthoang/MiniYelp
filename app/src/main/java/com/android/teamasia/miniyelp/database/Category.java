@@ -7,6 +7,10 @@ public class Category {
     private long id;
     private String title;
 
+    public Category(String title) {
+        this.title = title;
+    }
+
     public long getId() {
         return id;
     }
