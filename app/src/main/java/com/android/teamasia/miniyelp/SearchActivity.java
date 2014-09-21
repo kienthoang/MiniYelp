@@ -62,6 +62,9 @@ public class SearchActivity extends ActionBarActivity {
         });
     }
 
+    public void startQuery(View view) {
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
