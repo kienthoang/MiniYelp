@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import android.util.Log;
 
+import com.android.teamasia.miniyelp.database.Category;
 import com.android.teamasia.miniyelp.database.CategoryTable;
 import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
@@ -128,12 +129,25 @@ public class SearchActivity extends ActionBarActivity {
             rtb.createRestaurant(res);
             rtb.createRestaurant(res2);
             //rtb.close();
-            List<Restaurant> list = rtb.getAllRestaurants();
-            Log.d("test Res1", list.get(0).getId() + "," + list.get(0).getName() + ", "
-                    + list.get(0).getCity() + ", " + list.get(0).getCost() + "\n");
-            Log.d("test Res2", list.get(1).getId() + "," + list.get(1).getName() + ", "
-                    + list.get(1).getCity() + ", " + list.get(1).getCost());
+            List<Restaurant> resList = rtb.getAllRestaurants();
             rtb.close();
+            Log.d("test Res1", resList.get(0).getId() + "," + resList.get(0).getName() + ", "
+                    + resList.get(0).getCity() + ", " + resList.get(0).getCost() + "\n");
+            Log.d("test Res2", resList.get(1).getId() + "," + resList.get(1).getName() + ", "
+                    + resList.get(1).getCity() + ", " + resList.get(1).getCost());
+
+            CategoryTable ct = new CategoryTable(this);
+            ct.open();
+            for (String cn : catArr) {
+                ct.createCategory(new Category(cn));
+            }
+            ct.close();
+
+            RestaurantTimesTable rtt = new RestaurantTimesTable(this);
+            rtt.open();
+            rtt.createRestaurantTime(new RestaurantTime(res.getId(), day, time, time + 100));
+            rtt.close();
+
         } catch (Exception e) {
             Log.e("test Res error", e.toString());
             e.printStackTrace();

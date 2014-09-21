@@ -34,13 +34,18 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      * @param database The database.
      */
     public void createRestaurantsCategoriesTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (FOREIGN KEY(%s" +
-                                       ") REFERENCES %s(%s)" +
-                                       ", FOREIGN KEY(%s)  REFERENCES %s(%s))",
+        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER, %s INTEGER, " +
+                        "FOREIGN KEY(%s) REFERENCES %s(%s), " +
+                        "FOREIGN KEY(%s) REFERENCES %s(%s))",
                 RestaurantsCategoriesTable.TABLE_NAME,
+
+                RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
+                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
+
                 RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
                 CategoryTable.TABLE_NAME,
                 CategoryTable.COLUMN_ID,
+
                 RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
                 RestaurantTable.TABLE_NAME,
                 RestaurantTable.COLUMN_ID));
@@ -62,10 +67,16 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      */
     public void createRestaurantTimesTable(SQLiteDatabase database) {
         database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                        "%s INTEGER, %s INTEGER, %s INTEGER FOREIGN KEY)",
+                        "%s INTEGER, %s INTEGER, %s INTEGER, "+
+                        "FOREIGN KEY(%s) REFERENCES %s(%s))",
                 RestaurantTimesTable.TABLE_NAME, RestaurantTimesTable.COLUMN_ID,
                 RestaurantTimesTable.COLUMN_DAY, RestaurantTimesTable.COLUMN_START_TIME,
-                RestaurantTimesTable.COLUMN_END_TIME, RestaurantTimesTable.COLUMN_RESTAURANT_ID));
+                RestaurantTimesTable.COLUMN_END_TIME,
+                RestaurantTimesTable.COLUMN_RESTAURANT_ID,
+
+                RestaurantTimesTable.COLUMN_RESTAURANT_ID,
+                RestaurantTable.TABLE_NAME,
+                RestaurantTable.COLUMN_ID));
     }
 
     /**
@@ -93,9 +104,9 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         createRestaurantTable(database);
-        //createRestaurantsCategoriesTable(database);
-        //createCategoryTable(database);
-        //createRestaurantTimesTable(database);
+        createRestaurantsCategoriesTable(database);
+        createCategoryTable(database);
+        createRestaurantTimesTable(database);
         //createReviewTable(database);
         //createReviewerTable(database);
     }
