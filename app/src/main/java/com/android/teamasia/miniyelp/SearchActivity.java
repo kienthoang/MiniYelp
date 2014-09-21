@@ -1,12 +1,14 @@
 package com.android.teamasia.miniyelp;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,17 +16,27 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
 import android.util.Log;
 
+import com.android.teamasia.miniyelp.database.CategoryTable;
+import com.android.teamasia.miniyelp.database.Restaurant;
+import com.android.teamasia.miniyelp.database.RestaurantTable;
+import com.android.teamasia.miniyelp.database.RestaurantTime;
+import com.android.teamasia.miniyelp.database.RestaurantTimesTable;
+import com.android.teamasia.miniyelp.database.RestaurantsCategoriesTable;
+
 
 public class SearchActivity extends ActionBarActivity {
 
     private Context context;
     private List<EditText> categoryList = new ArrayList<EditText>();
+    private String timeDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +52,18 @@ public class SearchActivity extends ActionBarActivity {
         Spinner spinner = (Spinner) findViewById(R.id.daySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.day_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                timeDay = parent.getItemAtPosition(pos).toString();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                timeDay = "";
+            }
+        });
 
 
         // add the first item into the category list
@@ -75,13 +99,50 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     public void startQuery(View view) {
-        String cityName = ((EditText) findViewById(R.id.cityName)).toString();
+        String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
         String[] catArr = new String[categoryList.size()];
         for (int i = 0; i < catArr.length; i++) {
-            catArr[i] = categoryList.get(i).toString();
+            catArr[i] = categoryList.get(i).getText().toString();
         }
         int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
-//        String timeDay =
+        int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
+        int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
+        Log.d("user input test", cityName + "\n" + Arrays.toString(catArr) + "\n"
+        + cost + "\n" + timeDay + ", " + hour + ":" + minute);
+
+        Restaurant res = new Restaurant();
+
+        testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
+    }
+
+    private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
+
+        Restaurant res = new Restaurant();
+        Restaurant res2 = new Restaurant();
+        res.setCity(cityName);
+        res.setCost(cost);
+        res.setName("res1");
+        res.setRank(1);
+        res.setStreet("");
+        res.setCity(cityName);
+        res.setCost(cost + 1);
+        res.setName("res2");
+        res.setRank(2);
+        res.setStreet("");
+        RestaurantTime rt = new RestaurantTime();
+        rt.setDay(day);
+        rt.setStartTime(time);
+        rt.setEndTime(time + 100);
+        RestaurantTable rtb = new RestaurantTable(this);
+        rtb.open();
+        rtb.createRestaurant(res);
+        rtb.createRestaurant(res2);
+        rtb.close();
+        List<Restaurant> list = rtb.getAllRestaurants();
+        Log.d("Res1", list.get(0).getId() + "," + list.get(0).getName() + ", "
+                + list.get(0).getCity() + ", " + list.get(0).getCost() + "\n");
+        Log.d("Res2", list.get(1).getId() + "," + list.get(1).getName() + ", "
+                + list.get(1).getCity() + ", " + list.get(1).getCost());
     }
 
     @Override
