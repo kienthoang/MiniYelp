@@ -3,11 +3,11 @@ package com.android.teamasia.miniyelp.database;
 /**
  * Created by rameel on 9/20/14.
  */
-public class RestaurantTimes {
+public class RestaurantTime {
     private long restaurantId;
     private String day;
-    private int openTime;
-    private int closeTime;
+    private int startTime;
+    private int endTime;
 
     public long getRestaurantId() {
         return restaurantId;
@@ -25,19 +25,19 @@ public class RestaurantTimes {
         this.day = day;
     }
 
-    public int getOpenTime() {
-        return openTime;
+    public int getStartTime() {
+        return startTime;
     }
 
-    public void setOpenTime(int openTime) {
-        this.openTime = openTime;
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
     }
 
-    public int getCloseTime() {
-        return closeTime;
+    public int getEndTime() {
+        return endTime;
     }
 
-    public void setCloseTime(int closeTime) {
-        this.closeTime = closeTime;
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
     }
 }

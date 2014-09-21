@@ -15,11 +15,11 @@ public class RestaurantsCategories {
         this.restaurantId = restaurantId;
     }
 
-    public long getCategory_id() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategory_id(long category_id) {
+    public void setCategoryId(long category_id) {
         this.categoryId = category_id;
     }
 }

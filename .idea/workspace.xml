@@ -35,8 +35,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1f54a49-012c-409f-8c80-26df81b92231" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/SearchActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/SearchActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" />
+=======
+<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/CategoryTable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/CategoryTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTable.java" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/SearchActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MiniYelp.iws" />
@@ -60,7 +70,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+<<<<<<< HEAD
       <file leaf-file-name="activity_search.xml" pinned="false" current="false" current-in-tab="false">
+=======
+      <file leaf-file-name="MiniYelpSQLiteHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/MiniYelpSQLiteHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="0.0" vertical-offset="1061" max-vertical-offset="1710">
+              <caret line="104" column="58" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="225">
+              <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+              <folding />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="RestaurantTable.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.55469954" vertical-offset="0" max-vertical-offset="649">
+              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+=======
+      <file leaf-file-name="activity_search.xml" pinned="false" current="true" current-in-tab="true">
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-25.384615" vertical-offset="0" max-vertical-offset="1650">
@@ -115,6 +157,7 @@
             <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="195">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
             </state>
           </provider>
           <provider editor-type-id="android-designer">
@@ -122,11 +165,19 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="CategoryTable.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/CategoryTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+=======
       <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="375">
               <caret line="8" column="63" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
               <folding />
             </state>
           </provider>
@@ -1236,10 +1287,27 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTimes.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/Reviewer.java" />
         <option value="$PROJECT_DIR$/app/.gitignore" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantCategories.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantsCategories.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/Review.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantsTimes.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantsCategoriesTable.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTimesTable.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/ReviewTable.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/ReviewerTable.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/MiniYelpSQLiteHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/CategoryTable.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTable.java" />
+=======
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/SearchActivity.java" />
+=======
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       </list>
     </option>
   </component>
@@ -1714,8 +1782,16 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25755167" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32750398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+<<<<<<< HEAD
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791728" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32750398" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2091,7 +2167,14 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantsCategories.java">
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/InputParser.java">
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
           <caret line="8" column="63" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
@@ -2099,7 +2182,12 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_results.xml">
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18939394" vertical-offset="0" max-vertical-offset="396">
           <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
@@ -2107,13 +2195,24 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/InputParser.java">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTimes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="495">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2651515" vertical-offset="0" max-vertical-offset="396">
           <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_results.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16216215" vertical-offset="0" max-vertical-offset="370">
@@ -2125,6 +2224,14 @@
             <element signature="e#411#444#0" expanded="false" />
             <element signature="e#568#589#0" expanded="false" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_results.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+          <folding />
+>>>>>>> 74693c36691154ac3ca7899558f4f4d648e2f914
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -2168,8 +2275,46 @@
           </folding>
         </state>
       </provider>
+<<<<<<< HEAD
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/CategoryTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/InputParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/MiniYelpSQLiteHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1061" max-vertical-offset="1710">
+          <caret line="104" column="58" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+=======
       <provider editor-type-id="android-designer">
         <state />
+>>>>>>> 9a97051494869ec8782074778660da59a671aa1d
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/database/RestaurantTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55469954" vertical-offset="0" max-vertical-offset="649">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/android/teamasia/miniyelp/SearchActivity.java">
