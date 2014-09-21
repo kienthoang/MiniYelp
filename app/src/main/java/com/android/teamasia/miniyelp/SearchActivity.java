@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.android.teamasia.miniyelp.database.Category;
 import com.android.teamasia.miniyelp.database.CategoryTable;
+import com.android.teamasia.miniyelp.database.MiniYelpQueryHandler;
 import com.android.teamasia.miniyelp.database.MiniYelpSQLiteHelper;
 import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
@@ -174,15 +175,17 @@ public class SearchActivity extends ActionBarActivity {
         + cost + "\n" + timeDay + ", " + hour + ":" + minute);
 
         //testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
-        RestaurantTable rtb = new RestaurantTable(this);
-        rtb.open();
-        List<Restaurant> resList = rtb.getAllRestaurants();
-        rtb.close();
-        for (Restaurant restaurant:resList) {
-            Log.d("test Res Parser", restaurant.getId() + "," + restaurant.getName() + ", "
-                    + restaurant.getCity() + ", " + restaurant.getStreet() + ", "
-                    + restaurant.getRank() + ", " + restaurant.getCost() + "\n");
-        }
+//        RestaurantTable rtb = new RestaurantTable(this);
+//        rtb.open();
+//        List<Restaurant> resList = rtb.getAllRestaurants();
+//        rtb.close();
+//        for (Restaurant restaurant:resList) {
+//            Log.d("test Res Parser", restaurant.getId() + "," + restaurant.getName() + ", "
+//                    + restaurant.getCity() + ", " + restaurant.getStreet() + ", "
+//                    + restaurant.getRank() + ", " + restaurant.getCost() + "\n");
+//        }
+        MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
+        myqh.startQuery(cityName, catArr, cost, timeDay, hour*100 + minute);
 
     }
 
