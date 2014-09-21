@@ -35,8 +35,12 @@ public class CategoryTable {
     public Category createCategory(Category category) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, category.getTitle());
-        long catId = database.insert(TABLE_NAME, null, values);
-        category.setId(catId);
+        try {
+            long catId = database.insertOrThrow(TABLE_NAME, null, values);
+            category.setId(catId);
+        } catch (android.database.sqlite.SQLiteConstraintException e) {
+            // do nothing, non-unique data shouldn't be added
+        }
         return category;
     }
 
