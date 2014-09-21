@@ -127,12 +127,13 @@ public class SearchActivity extends ActionBarActivity {
             rtb.open();
             rtb.createRestaurant(res);
             rtb.createRestaurant(res2);
-            rtb.close();
+            //rtb.close();
             List<Restaurant> list = rtb.getAllRestaurants();
             Log.d("test Res1", list.get(0).getId() + "," + list.get(0).getName() + ", "
                     + list.get(0).getCity() + ", " + list.get(0).getCost() + "\n");
             Log.d("test Res2", list.get(1).getId() + "," + list.get(1).getName() + ", "
                     + list.get(1).getCity() + ", " + list.get(1).getCost());
+            rtb.close();
         } catch (Exception e) {
             Log.e("test Res error", e.toString());
             e.printStackTrace();
