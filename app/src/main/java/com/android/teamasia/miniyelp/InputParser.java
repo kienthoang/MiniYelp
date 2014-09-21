@@ -1,4 +1,7 @@
 package com.android.teamasia.miniyelp;
+
+import com.android.teamasia.miniyelp.database;
+
 import  java.util.*;
 import java.io.*;
 /**
@@ -14,15 +17,18 @@ public class InputParser {
     public static void parseInputBlock(String block)  {
 
         try{
+
+            File inputFile = new File(block);
+            Scanner sc = new Scanner(inputFile);
             // variables
-            int rank;
-            String cost ;
-            ArrayList<String> opening;
-            String name;
-            String street;
-            ArrayList<String> cateogory;
+            int rank =0;
+            String cost = "" ;
+            ArrayList<String> opening = new ArrayList<String>();
+            String name= "";
+            String street=  "";
+            ArrayList<String> cateogory = new ArrayList<String>();
             String reviewers;
-            String city;
+            String city= "";
 
             //database table
             CategoryTable categorytable = new CategoryTable();
@@ -35,21 +41,21 @@ public class InputParser {
             while(sc.hasNext()){
 
                 String currentline = sc.nextLine();
-//   System.out.println(currentline);
+
 
                 if(!currentline.isEmpty()){
                     String variable = currentline.substring(0,2);
 
                     //rank
-//   System.out.print(variable.equals("ra"));
+
                     if(variable.equals("ra")){
                         rank =  Integer.parseInt(currentline.substring(currentline.indexOf(" ")+1, currentline.length()));
-                        System.out.println(rank);
+
                     }
                     //cost
                     else if(variable.equals("co")){
                         cost =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        System.out.println(cost);
+
                     }
 
                     // opening hours
@@ -63,57 +69,58 @@ public class InputParser {
                     // address aka street
                     else if(variable.equals("st")){
                         street =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        System.out.println(address);
                     }
+
                     //name
                     else if(variable.equals("na")){
                         name =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        System.out.println(name);
                     }
+
                     // cateogory
                     else if(variable.equals("ca")){
-                        String[] first = currentline.split(" ");
-                        String cateogorylist =  first[1];
-                        String[] cateogory1 = cateogorylist.split(",");
+                        String first = currentline.substring(currentline.indexOf(" ")+1, currentline.length());
+                        String[] cateogory1 = first.split(",");
                         cateogory = convert(cateogory1);
-                        for(String s: cateogory){
-                            System.out.println(s);
-                        }
                     }
 
                     // reviewers
                     else if(variable.equals("re")){
                         reviewers =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        System.out.println(reviewers);
                     }
+
                     //city
                     else if(variable.equals("ci")){
                         city =  currentline.substring(currentline.indexOf(" ")+1, currentline.length());
-                        System.out.println(city);
                     }
                 }
                 else{
 
                     System.out.println("End of the block");
 
-                    // create a new resturant
+                    //create a new resturant
                     Resturant temp = new Restaurant(street, city, rank, cost, name));
+                    //System.out.println(street +"  " + city +  "   " + rank + " " + cost + "  " + name);
 
-                    // add resutrant to resturantable
+                    //add resutrant to resturantable
                     Resturant add  = resturanttable.createResturant(temp);
 
                     // add all category to category table and also add to resturant-cateogory table
-                    for(int i =0; i < cateogory.length < i++){
+                    for(String s: cateogory){
+                        System.out.println(s);
                         Category temp = new Cateogory(cateogory[i]);
                         Category temp1 = categorytable.createCategory(temp);
                         RestaurantsCategories restcat = new RestaurantsCategories(add.getId(), temp1.getId());
                         rescattable.addcreateRestaurantsCategories(restcat);
                     }
-
-                    // also update the opening hours to opening hours table
+//    
+//    // also update the opening hours to opening hours table
                     for( String e: opening){
                         String[] hours = e.split(" ");
-                        resturanttimetable.createRestaurantTime(new ResturantTime(add.getId(), hours[0], hours[1], hours[2]));
+                        String start = hours[1].substring(0, hours[1].indexOf(":"))+ hours[1].substring(hours[1].indexOf(":")+1, hours[1].length());
+                        String end = hours[2].substring(0, hours[2].indexOf(":"))+ hours[2].substring(hours[2].indexOf(":")+1, hours[2].length());
+//      
+                        //System.out.println( hours[0] + "  " + start + "  " + end);
+                        resturanttimetable.createRestaurantTime(new ResturantTime(add.getId(),hours[0], Integer.parseInt(start), Integer.parseInt(end));
                     }
 
 
@@ -126,7 +133,7 @@ public class InputParser {
 
 
         catch(IOException e){
-            System.out.println("Exception Found");
+            System.out.println("fuck yourself");
         }
 
     }
