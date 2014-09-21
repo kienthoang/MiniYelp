@@ -1,6 +1,8 @@
 package com.android.teamasia.miniyelp;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+
 
 import com.android.teamasia.miniyelp.database.Category;
 import com.android.teamasia.miniyelp.database.CategoryTable;
@@ -13,6 +15,7 @@ import com.android.teamasia.miniyelp.database.RestaurantsCategoriesTable;
 
 import  java.util.*;
 import java.io.*;
+import java.lang.Object;
 /**
  * Created by kienhoang on 9/20/14.
  * Modified by bikram on 9/20/14.
@@ -22,7 +25,7 @@ public class InputParser {
     private static Context context;
 
     public static void main(String args[]){
-        parseInputBlock("sample.txt");
+        parseInputBlock("InputFile.txt");
     }
 
     public InputParser(Context context) {
@@ -32,9 +35,10 @@ public class InputParser {
     public static void parseInputBlock(String block)  {
 
         try{
-
-            File inputFile = new File(block);
-            Scanner sc = new Scanner(inputFile);
+            AssetManager am = context.getAssets();
+            InputStream is = am.open(block);
+//            File inputFile = new File(block);
+            Scanner sc = new Scanner(is);
             // variables
             double rank =0;
             int cost = 0 ;
@@ -58,7 +62,7 @@ public class InputParser {
                 String currentline = sc.nextLine();
 
 
-                if(!currentline.isEmpty()){
+                if(!currentline.equals("")){
                     String variable = currentline.substring(0,2);
 
                     //rank

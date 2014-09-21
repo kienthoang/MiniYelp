@@ -7,6 +7,9 @@ public class Category {
     private long id;
     private String title;
 
+    public Category() {
+    }
+
     public Category(String title) {
         this.title = title;
     }
