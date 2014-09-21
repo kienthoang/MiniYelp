@@ -39,6 +39,11 @@ public class MiniYelpQueryHandler {
 
         String str = builder.buildQuery(new String[]{RestaurantTable.COLUMN_ID}, null, null, null, null, null, null);
         Log.d("test q", str);
+
+        if (catJoined) {
+
+        }
+
 //        if (!day.equals("") || time > 0) {
 //            timeJoined = true;
 //        }
