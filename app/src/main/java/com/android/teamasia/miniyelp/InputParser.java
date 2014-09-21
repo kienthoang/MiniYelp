@@ -126,7 +126,7 @@ public class InputParser {
 
 
         catch(IOException e){
-            System.out.println("fuck yourself");
+            System.out.println("Exception Found");
         }
 
     }

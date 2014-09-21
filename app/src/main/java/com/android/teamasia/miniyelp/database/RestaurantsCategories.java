@@ -3,9 +3,15 @@ package com.android.teamasia.miniyelp.database;
 /**
  * Created by rameel on 9/20/14.
  */
+
 public class RestaurantsCategories {
     private long restaurantId;
     private long categoryId;
+
+    public RestaurantsCategories(long restaurantId, long categoryId) {
+        this.restaurantId = restaurantId;
+        this.categoryId = categoryId;
+    }
 
     public long getRestaurantId() {
         return restaurantId;
