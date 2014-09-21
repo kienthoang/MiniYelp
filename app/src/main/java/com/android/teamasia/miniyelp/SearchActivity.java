@@ -30,7 +30,10 @@ public class SearchActivity extends ActionBarActivity {
         TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
         context = this.getApplicationContext();
+        // add the first item into the category list
+        categoryList.add((EditText) findViewById(R.id.category_item));
         Button addButton =(Button) findViewById(R.id.add_button);
+        // add new lines for multiple categories
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,11 +48,16 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
         Button removeButton = (Button) findViewById(R.id.remove_button);
+        // remove excessive lines of category.
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
-//                EditText deleteCategory = categories
+                if (categoryList.size() > 1) {
+                    LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
+                    EditText deleteCategory = categoryList.get(categoryList.size() - 1);
+                    categories.removeView(deleteCategory);
+                    categoryList.remove(categoryList.size() - 1);
+                }
             }
         });
     }
