@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
+import android.util.Log;
+
 
 public class SearchActivity extends ActionBarActivity {
 
@@ -39,13 +41,15 @@ public class SearchActivity extends ActionBarActivity {
                 newCategory.setLayoutParams(params);
                 LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
                 categories.addView(newCategory);
+                categoryList.add(newCategory);
             }
         });
         Button removeButton = (Button) findViewById(R.id.remove_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
+//                EditText deleteCategory = categories
             }
         });
     }
