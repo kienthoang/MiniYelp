@@ -56,9 +56,11 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      * @param database The database.
      */
     public void createCategoryTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT)",
-                CategoryTable.TABLE_NAME, CategoryTable.COLUMN_ID,
-                CategoryTable.COLUMN_NAME));
+        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, " +
+                        "%s TEXT, UNIQUE(%s))",
+                CategoryTable.TABLE_NAME,
+                CategoryTable.COLUMN_ID, CategoryTable.COLUMN_NAME,
+                /*CategoryTable.COLUMN_ID,*/ CategoryTable.COLUMN_NAME));
     }
 
     /**

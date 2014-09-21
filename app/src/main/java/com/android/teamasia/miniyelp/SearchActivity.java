@@ -131,15 +131,19 @@ public class SearchActivity extends ActionBarActivity {
             //rtb.close();
             List<Restaurant> resList = rtb.getAllRestaurants();
             rtb.close();
-            Log.d("test Res1", resList.get(0).getId() + "," + resList.get(0).getName() + ", "
-                    + resList.get(0).getCity() + ", " + resList.get(0).getCost() + "\n");
-            Log.d("test Res2", resList.get(1).getId() + "," + resList.get(1).getName() + ", "
-                    + resList.get(1).getCity() + ", " + resList.get(1).getCost());
-
+            for (Restaurant restaurant:resList) {
+                Log.d("test Res", restaurant.getId() + "," + restaurant.getName() + ", "
+                        + restaurant.getCity() + ", " + restaurant.getCost() + "\n");
+            }
             CategoryTable ct = new CategoryTable(this);
             ct.open();
             for (String cn : catArr) {
                 ct.createCategory(new Category(cn));
+            }
+
+            List<Category> catList = ct.getAllCategories();
+            for (Category cat:catList) {
+                Log.d("test Cat", cat.getId() + "," + cat.getTitle() + "\n");
             }
             ct.close();
 
