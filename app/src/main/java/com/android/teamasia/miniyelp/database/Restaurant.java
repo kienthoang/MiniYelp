@@ -10,6 +10,7 @@ public class Restaurant {
     private double rank;
     private int cost;
     private String name;
+    private int reviewers;
 
     // !!!empty constructor still needed
     public Restaurant() {
@@ -17,14 +18,17 @@ public class Restaurant {
         city = "";
         rank = 0;
         name = "";
+        reviewers = 0;
     }
 
-    public Restaurant(String street, String city, double rank, int cost, String name) {
+    public Restaurant(String street, String city, double rank, int cost, String name,
+                      int reviewers) {
         this.street = street;
         this.city = city;
         this.rank = rank;
         this.cost = cost;
         this.name = name;
+        this.reviewers = reviewers;
     }
 
     public String getStreet() {
@@ -73,5 +77,13 @@ public class Restaurant {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(int reviewers) {
+        this.reviewers = reviewers;
     }
 }
