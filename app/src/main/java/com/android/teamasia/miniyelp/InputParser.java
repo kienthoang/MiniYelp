@@ -59,7 +59,7 @@ public class InputParser {
             // check for the end of the text file
             while(sc.hasNext()){
 
-                String currentline = sc.nextLine();
+                String currentline = sc.nextLine().toLowerCase();
 
 
                 if(!currentline.equals("")){
