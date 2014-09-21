@@ -1,6 +1,7 @@
 package com.android.teamasia.miniyelp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -98,6 +99,27 @@ public class SearchActivity extends ActionBarActivity {
                     categories.removeView(deleteCategory);
                     categoryList.remove(categoryList.size() - 1);
                 }
+            }
+        });
+        Button searchButton = (Button) findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
+                String[] catArr = new String[categoryList.size()];
+                for (int i = 0; i < catArr.length; i++) {
+                    catArr[i] = categoryList.get(i).getText().toString();
+                }
+                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
+                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
+                int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
+                Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
+                i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
+                i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
+                i.putExtra(ResultsActivity.EXTRA_COST, cost);
+                i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
+                i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
+                startActivity(i);
             }
         });
     }

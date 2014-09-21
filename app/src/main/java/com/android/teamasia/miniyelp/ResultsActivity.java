@@ -15,6 +15,13 @@ import android.os.Build;
 
 public class ResultsActivity extends ActionBarActivity {
 
+    public static final String EXTRA_CITY = "com.android.teamasia.miniyelp.city";
+    public static final String EXTRA_CAT_ARR = "com.android.teamasia.miniyelp.cat_arr";
+    public static final String EXTRA_COST = "com.android.teamasia.miniyelp.cost";
+    public static final String EXTRA_DAY = "com.android.teamasia.miniyelp.day";
+    public static final String EXTRA_TIME = "com.android.teamasia.miniyelp.hour";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
