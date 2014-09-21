@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.android.teamasia.miniyelp.database.Category;
 import com.android.teamasia.miniyelp.database.CategoryTable;
+import com.android.teamasia.miniyelp.database.MiniYelpSQLiteHelper;
 import com.android.teamasia.miniyelp.database.Restaurant;
 import com.android.teamasia.miniyelp.database.RestaurantTable;
 import com.android.teamasia.miniyelp.database.RestaurantTime;
@@ -43,12 +44,22 @@ public class SearchActivity extends ActionBarActivity {
     private String timeDay;
     private boolean searchByTime;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
+        InputParser once = new InputParser(this);
+
+        MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
+        if(miniyelp.getDatabaseSize() <= 0) {
+            InputParser once = new InputParser(this);
+            once.parseInputBlock("InputFile");
+        }
+
+        TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
 
         final CheckBox checkBox = (CheckBox) findViewById(R.id.time_picker_checkBox);
@@ -151,7 +162,17 @@ public class SearchActivity extends ActionBarActivity {
         Log.d("user input test", cityName + "\n" + Arrays.toString(catArr) + "\n"
         + cost + "\n" + timeDay + ", " + hour + ":" + minute);
 
-        testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
+        //testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
+        RestaurantTable rtb = new RestaurantTable(this);
+        rtb.open();
+        List<Restaurant> resList = rtb.getAllRestaurants();
+        rtb.close();
+        for (Restaurant restaurant:resList) {
+            Log.d("test Res Parser", restaurant.getId() + "," + restaurant.getName() + ", "
+                    + restaurant.getCity() + ", " + restaurant.getStreet() + ", "
+                    + restaurant.getRank() + ", " + restaurant.getCost() + "\n");
+        }
+
     }
 
     private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
