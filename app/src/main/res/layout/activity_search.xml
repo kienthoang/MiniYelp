@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_gravity="center_vertical"
     android:gravity="center"
     tools:context=".SearchActivity">
     <TextView
@@ -24,7 +25,6 @@
             android:hint="@string/city_hint" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/categories_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -33,10 +33,20 @@
             android:text="@string/categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <EditText
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/categories_hint"/>
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/category_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/categories_hint"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -44,10 +54,12 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal">
         <Button
+            android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"/>
         <Button
+            android:id="@+id/remove_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/remove"/>

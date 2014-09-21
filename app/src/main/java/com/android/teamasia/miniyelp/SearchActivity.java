@@ -1,22 +1,53 @@
 package com.android.teamasia.miniyelp;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import java.util.Calendar;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class SearchActivity extends ActionBarActivity {
+
+    private Context context;
+    private List<EditText> categoryList = new ArrayList<EditText>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        TimePicker timePicker=(TimePicker)findViewById(R.id.time_picker);
+        TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
+        context = this.getApplicationContext();
+        Button addButton =(Button) findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newCategory = new EditText(SearchActivity.this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+                newCategory.setLayoutParams(params);
+                LinearLayout categories = (LinearLayout) findViewById(R.id.category_list);
+                categories.addView(newCategory);
+            }
+        });
+        Button removeButton = (Button) findViewById(R.id.remove_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 
