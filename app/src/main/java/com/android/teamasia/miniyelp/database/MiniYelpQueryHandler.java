@@ -30,7 +30,7 @@ public class MiniYelpQueryHandler {
         mainBuilder.setTables(RestaurantTable.TABLE_NAME);
 
         if (!cityName.equals("")) {
-            mainBuilder.appendWhere(RestaurantTable.COLUMN_CITY + "=" + cityName);
+            mainBuilder.appendWhere(RestaurantTable.COLUMN_CITY + " = '" + cityName + "'");
             noMainClause = false;
         }
         if (catArr.length > 0) {
@@ -40,7 +40,7 @@ public class MiniYelpQueryHandler {
             mainBuilder.appendWhere(RestaurantTable.COLUMN_COST + "=" + cost);
             noMainClause = false;
         } else if (cost > 0) {
-            mainBuilder.appendWhere(" AND " + RestaurantTable.COLUMN_COST + "=" + cost);
+            mainBuilder.appendWhere(" AND " + RestaurantTable.COLUMN_COST + " = " + cost);
         }
 
         String str = mainBuilder.buildQuery(
@@ -53,11 +53,13 @@ public class MiniYelpQueryHandler {
             SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
             catBuilder.setTables(RestaurantsCategoriesTable.TABLE_NAME + " JOIN " +
                                  CategoryTable.TABLE_NAME + " ON " +
-                                 CategoryTable.COLUMN_ID + "=" +
+                                 CategoryTable.COLUMN_ID + " = " +
                                  RestaurantsCategoriesTable.COLUMN_CATEGORY_ID);
-            catBuilder.appendWhere(CategoryTable.COLUMN_NAME + "=" + catArr[0]);
+            if (!catArr[0].equals("")) {
+                catBuilder.appendWhere(CategoryTable.COLUMN_NAME + " = '" + catArr[0] + "'");
+            }
             for (int i = 1; i < catArr.length; i++) {
-                catBuilder.appendWhere(" AND " + CategoryTable.COLUMN_NAME + "=" + catArr[i]);
+                catBuilder.appendWhere(" AND " + CategoryTable.COLUMN_NAME + " = '" + catArr[i] + "'");
             }
             String str2 = catBuilder.buildQuery(
                     new String[]{"*"},
@@ -75,8 +77,8 @@ public class MiniYelpQueryHandler {
 
         }
         try {
-            //Cursor cursor = database.rawQuery(str, null);
-            Cursor cursor = database.rawQuery("SELECT _id " + " FROM " + RestaurantTable.TABLE_NAME + " WHERE (" + RestaurantTable.COLUMN_CITY + " = " + cityName + ")", null);
+            Cursor cursor = database.rawQuery(str, null);
+            //Cursor cursor = database.rawQuery("SELECT * " + " FROM " + RestaurantTable.TABLE_NAME + " WHERE (" + RestaurantTable.COLUMN_CITY + " = '" + cityName + "')", null);
             cursor.moveToFirst();
 
             String outputStr = "";
