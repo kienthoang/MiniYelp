@@ -41,6 +41,7 @@ public class CategoryTable {
             category.setId(catId);
         } catch (android.database.sqlite.SQLiteConstraintException e) {
             SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
+            catBuilder.setTables(TABLE_NAME);
             catBuilder.appendWhere(COLUMN_NAME + " = '" + category.getTitle() + "'");
             String query = catBuilder.buildQuery(new String[]{"*"}, null, null, null, null, null, null);
             query = "SELECT _id FROM (" + query + ")";
