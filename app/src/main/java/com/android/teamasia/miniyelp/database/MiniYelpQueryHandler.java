@@ -74,7 +74,6 @@ public class MiniYelpQueryHandler {
 //        }
         if (timeJoined) {
 
-
         }
         try {
             Cursor cursor = database.rawQuery(str, null);
