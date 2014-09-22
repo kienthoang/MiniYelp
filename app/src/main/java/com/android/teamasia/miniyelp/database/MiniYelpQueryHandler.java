@@ -1,6 +1,7 @@
 package com.android.teamasia.miniyelp.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
@@ -43,8 +44,9 @@ public class MiniYelpQueryHandler {
         }
 
         String str = mainBuilder.buildQuery(
-                new String[]{RestaurantTable.COLUMN_ID},
+                new String[]{"*"},
                 null, null, null, null, null, null);
+        str = "(" + str + ")";
         Log.d("test q", str);
 
         if (catJoined) {
@@ -58,13 +60,41 @@ public class MiniYelpQueryHandler {
                 catBuilder.appendWhere(" AND " + CategoryTable.COLUMN_NAME + "=" + catArr[i]);
             }
             String str2 = catBuilder.buildQuery(
-                    new String[]{RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID},
+                    new String[]{"*"},
                     null, null, null, null, null, null);
+            str2 = "(" + str2 + ")";
             Log.d("test cat", str2);
+            str += " AS T1";
+            str2 += " AS T2";
+            str = str + " INNER JOIN " + str2 + " ON T1._id = T2.restaurant_id";
+            str = "SELECT * FROM " + str;
+            Log.d("test cat 2", str);
         }
         if (timeJoined) {
 
+
         }
+        try {
+            //Cursor cursor = database.rawQuery(str, null);
+            Cursor cursor = database.rawQuery("SELECT _id " + " FROM " + RestaurantTable.TABLE_NAME + " WHERE (" + RestaurantTable.COLUMN_CITY + " = " + cityName + ")", null);
+            cursor.moveToFirst();
+
+            String outputStr = "";
+
+            while (!cursor.isAfterLast()) {
+                String[] strArr = cursor.getColumnNames();
+                for (int i = 0; i < strArr.length; i++) {
+                    outputStr += cursor.getString(i);
+                }
+                outputStr += "\n";
+                cursor.moveToNext();
+            }
+            cursor.close();
+            Log.d("...", outputStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        if (catJoined)
 
 //        if (!day.equals("") || time > 0) {
 //            timeJoined = true;
