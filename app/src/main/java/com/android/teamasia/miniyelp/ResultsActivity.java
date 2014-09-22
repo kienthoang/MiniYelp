@@ -11,7 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ResultsActivity extends ListActivity {
@@ -23,11 +26,32 @@ public class ResultsActivity extends ListActivity {
     public static final String EXTRA_TIME = "com.android.teamasia.miniyelp.hour";
     public static final String EXTRA_SEARCH_BY_TIME = "com.android.teamasia.miniyelp.search_time";
 
+    private String city;
+    private String[] cat_arr;
+    private double cost;
+    private String day;
+    private int time;
+    private boolean searchByTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+
+        city = getIntent().getStringExtra(EXTRA_CITY);
+        cat_arr = getIntent().getStringArrayExtra(EXTRA_CAT_ARR);
+        cost = getIntent().getDoubleExtra(EXTRA_COST, -1);
+        day = getIntent().getStringExtra(EXTRA_DAY);
+        time = getIntent().getIntExtra(EXTRA_TIME, -1);
+        searchByTime = getIntent().getBooleanExtra(EXTRA_SEARCH_BY_TIME, false);
+
+        List<String> results = new ArrayList<String>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, results);
+        setListAdapter(adapter);
+        adapter.add("CS320");
+        adapter.add("Databases");
+        adapter.add("TeamAsia");
+        adapter.notifyDataSetChanged();
     }
 
     @Override
