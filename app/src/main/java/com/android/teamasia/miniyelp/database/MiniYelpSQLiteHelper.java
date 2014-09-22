@@ -22,11 +22,11 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      */
     public void createRestaurantTable(SQLiteDatabase database) {
         database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                                       "%s INTEGER, %s INTEGER, %s TEXT, %s TEXT)",
+                                       "%s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER)",
                 RestaurantTable.TABLE_NAME, RestaurantTable.COLUMN_ID,
                 RestaurantTable.COLUMN_NAME, RestaurantTable.COLUMN_RANK,
                 RestaurantTable.COLUMN_COST, RestaurantTable.COLUMN_STREET,
-                RestaurantTable.COLUMN_CITY));
+                RestaurantTable.COLUMN_CITY, RestaurantTable.COLUMN_REVIEWERS));
     }
 
     /**
@@ -34,11 +34,21 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      * @param database The database.
      */
     public void createRestaurantsCategoriesTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER FOREIGN KEY, " +
-                                       "%s INTEGER FOREIGN KEY)",
+        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER, %s INTEGER, " +
+                        "FOREIGN KEY(%s) REFERENCES %s(%s), " +
+                        "FOREIGN KEY(%s) REFERENCES %s(%s))",
                 RestaurantsCategoriesTable.TABLE_NAME,
+
                 RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
-                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID));
+                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
+
+                RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
+                CategoryTable.TABLE_NAME,
+                CategoryTable.COLUMN_ID,
+
+                RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
+                RestaurantTable.TABLE_NAME,
+                RestaurantTable.COLUMN_ID));
     }
 
     /**
@@ -46,9 +56,11 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      * @param database The database.
      */
     public void createCategoryTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT)",
-                CategoryTable.TABLE_NAME, CategoryTable.COLUMN_ID,
-                CategoryTable.COLUMN_NAME));
+        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, " +
+                        "%s TEXT, UNIQUE(%s))",
+                CategoryTable.TABLE_NAME,
+                CategoryTable.COLUMN_ID, CategoryTable.COLUMN_NAME,
+                /*CategoryTable.COLUMN_ID,*/ CategoryTable.COLUMN_NAME));
     }
 
     /**
@@ -57,32 +69,26 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
      */
     public void createRestaurantTimesTable(SQLiteDatabase database) {
         database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                        "%s INTEGER, %s INTEGER, %s INTEGER FOREIGN KEY)",
+                        "%s INTEGER, %s INTEGER, %s INTEGER, "+
+                        "FOREIGN KEY(%s) REFERENCES %s(%s))",
                 RestaurantTimesTable.TABLE_NAME, RestaurantTimesTable.COLUMN_ID,
                 RestaurantTimesTable.COLUMN_DAY, RestaurantTimesTable.COLUMN_START_TIME,
-                RestaurantTimesTable.COLUMN_END_TIME, RestaurantTimesTable.COLUMN_RESTAURANT_ID));
+                RestaurantTimesTable.COLUMN_END_TIME,
+                RestaurantTimesTable.COLUMN_RESTAURANT_ID,
+
+                RestaurantTimesTable.COLUMN_RESTAURANT_ID,
+                RestaurantTable.TABLE_NAME,
+                RestaurantTable.COLUMN_ID));
     }
 
-    /**
-     * Creates the review table.
-     * @param database The database.
-     */
-    public void createReviewTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, " +
-                        "%s INTEGER FOREIGN KEY, %s INTEGER FOREIGN KEY)",
-                ReviewTable.TABLE_NAME, ReviewTable.COLUMN_ID,
-                ReviewTable.COLUMN_CONTENT, ReviewTable.COLUMN_RESTAURANT_ID,
-                ReviewTable.COLUMN_REVIEWER_ID));
-    }
+    /*
+    * Returns the database in use
+    * */
 
-    /**
-     * Creates the reviewer table.
-     * @param database The database.
-     */
-    public void createReviewerTable(SQLiteDatabase database) {
-        database.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT)",
-                ReviewerTable.TABLE_NAME, ReviewerTable.COLUMN_ID,
-                ReviewerTable.COLUMN_NAME));
+     public long getDatabaseSize(){
+         long size = getReadableDatabase().getPageSize();
+         close();
+         return size;
     }
 
     @Override
@@ -91,8 +97,8 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
         createRestaurantsCategoriesTable(database);
         createCategoryTable(database);
         createRestaurantTimesTable(database);
-        createReviewTable(database);
-        createReviewerTable(database);
+        //createReviewTable(database);
+        //createReviewerTable(database);
     }
 
     @Override
@@ -101,8 +107,6 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantsCategoriesTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CategoryTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantTimesTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ReviewTable.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + ReviewerTable.TABLE_NAME);
         onCreate(db);
     }
 }

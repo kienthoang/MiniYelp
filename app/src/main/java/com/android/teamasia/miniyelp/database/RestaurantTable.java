@@ -20,11 +20,12 @@ public class RestaurantTable {
     public static final String COLUMN_COST = "cost";
     public static final String COLUMN_STREET = "street";
     public static final String COLUMN_CITY = "city";
+    public static final String COLUMN_REVIEWERS = "reviewers";
 
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper dbHelper;
     private String[] allColumns = {COLUMN_ID, COLUMN_NAME, COLUMN_RANK,
-                                   COLUMN_COST, COLUMN_STREET, COLUMN_CITY};
+                                   COLUMN_COST, COLUMN_STREET, COLUMN_CITY, COLUMN_REVIEWERS};
 
     public RestaurantTable(Context context) {
         dbHelper = new MiniYelpSQLiteHelper(context);
@@ -45,6 +46,7 @@ public class RestaurantTable {
         values.put(COLUMN_COST, restaurant.getCost());
         values.put(COLUMN_STREET, restaurant.getStreet());
         values.put(COLUMN_CITY, restaurant.getCity());
+        values.put(COLUMN_REVIEWERS, restaurant.getReviewers());
         long restaurantId = database.insert(TABLE_NAME, null, values);
         restaurant.setId(restaurantId);
         return restaurant;
@@ -70,10 +72,11 @@ public class RestaurantTable {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(cursor.getLong(0));
         restaurant.setName(cursor.getString(1));
-        restaurant.setRank(cursor.getInt(2));
+        restaurant.setRank(cursor.getDouble(2));
         restaurant.setCost(cursor.getInt(3));
         restaurant.setStreet(cursor.getString(4));
         restaurant.setCity(cursor.getString(5));
+        restaurant.setReviewers(cursor.getInt(6));
         return restaurant;
     }
 }

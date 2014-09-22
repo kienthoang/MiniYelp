@@ -7,9 +7,29 @@ public class Restaurant {
     private long id;
     private String street;
     private String city;
-    private int rank;
+    private double rank;
     private int cost;
     private String name;
+    private int reviewers;
+
+    // !!!empty constructor still needed
+    public Restaurant() {
+        street = "";
+        city = "";
+        rank = 0;
+        name = "";
+        reviewers = 0;
+    }
+
+    public Restaurant(String street, String city, double rank, int cost, String name,
+                      int reviewers) {
+        this.street = street;
+        this.city = city;
+        this.rank = rank;
+        this.cost = cost;
+        this.name = name;
+        this.reviewers = reviewers;
+    }
 
     public String getStreet() {
         return street;
@@ -27,11 +47,11 @@ public class Restaurant {
         this.cost = cost;
     }
 
-    public int getRank() {
+    public double getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(double rank) {
         this.rank = rank;
     }
 
@@ -57,5 +77,13 @@ public class Restaurant {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(int reviewers) {
+        this.reviewers = reviewers;
     }
 }
