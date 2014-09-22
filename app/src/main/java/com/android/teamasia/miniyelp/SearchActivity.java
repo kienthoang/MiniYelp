@@ -102,7 +102,7 @@ public class SearchActivity extends ActionBarActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                timeDay = parent.getItemAtPosition(pos).toString();
+                timeDay = parent.getItemAtPosition(pos).toString().toLowerCase();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -145,10 +145,10 @@ public class SearchActivity extends ActionBarActivity {
 //        searchButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
+//                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString().toLowerCase();
 //                String[] catArr = new String[categoryList.size()];
 //                for (int i = 0; i < catArr.length; i++) {
-//                    catArr[i] = categoryList.get(i).getText().toString();
+//                    catArr[i] = categoryList.get(i).getText().toString().toLowerCase();
 //                }
 //                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
 //                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
