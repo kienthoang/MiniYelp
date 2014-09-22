@@ -119,6 +119,8 @@ public class MiniYelpQueryHandler {
             e.printStackTrace();
         }
 
+
+
         return results;
     }
 }
