@@ -36,6 +36,7 @@ public class ResultsActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_results);
 
         city = getIntent().getStringExtra(EXTRA_CITY);
         cat_arr = getIntent().getStringArrayExtra(EXTRA_CAT_ARR);
