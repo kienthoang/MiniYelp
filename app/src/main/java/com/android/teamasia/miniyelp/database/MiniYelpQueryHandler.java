@@ -21,6 +21,9 @@ public class MiniYelpQueryHandler {
     }
 
     public List<String> startQuery(String cityName, String[]catArr, int cost, String day, int time) {
+
+        Log.d("cehck param", cityName + "\n" + Arrays.toString(catArr) + "\n" + cost + "\n" + day + "^\n" + time);
+
         SQLiteQueryBuilder mainBuilder = new SQLiteQueryBuilder();
         mainBuilder.setTables(RestaurantTable.TABLE_NAME);
 
@@ -119,6 +122,39 @@ public class MiniYelpQueryHandler {
             e.printStackTrace();
         }
 
+
+
         return results;
+    }
+
+    public void printRestaurantCategoriesTable() {
+        String queryString = "SELECT * FROM ((SELECT * FROM " + RestaurantTable.TABLE_NAME + " JOIN " +
+                RestaurantsCategoriesTable.TABLE_NAME + " ON " + RestaurantTable.COLUMN_ID +
+                " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + ") AS T1";
+        queryString += " JOIN (SELECT * FROM T1 JOIN " +
+                CategoryTable.TABLE_NAME + " ON " + RestaurantsCategoriesTable.COLUMN_CATEGORY_ID +
+                " = " + CategoryTable.COLUMN_ID + "))";
+
+        List<String> results = new ArrayList<String>();
+        try {
+            Cursor cursor = database.rawQuery(queryString, null);
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                String[] strArr = cursor.getColumnNames();
+                Log.d("Col name", Arrays.toString(strArr));
+                String result = "";
+                for (int i = 0; i < strArr.length; i++) {
+                    result += cursor.getString(i) + " ";
+                }
+                Log.d("check table", result);
+                results.add(result);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
