@@ -147,6 +147,7 @@ public class SearchActivity extends ActionBarActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString().toLowerCase();
                 String[] catArr = new String[categoryList.size()];
                 for (int i = 0; i < catArr.length; i++) {
@@ -172,81 +173,6 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
     }
-
-    public void startQuery(View view) {
-        String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString();
-        String[] catArr = new String[categoryList.size()];
-        for (int i = 0; i < catArr.length; i++) {
-            catArr[i] = categoryList.get(i).getText().toString();
-        }
-        int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
-        int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
-        int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
-        Log.d("user input test", cityName + "\n" + Arrays.toString(catArr) + "\n"
-        + cost + "\n" + timeDay + ", " + hour + ":" + minute);
-
-        //testTable(cityName, catArr, cost, timeDay, hour*100 + minute);
-//        RestaurantTable rtb = new RestaurantTable(this);
-//        rtb.open();
-//        List<Restaurant> resList = rtb.getAllRestaurants();
-//        rtb.close();
-//        for (Restaurant restaurant:resList) {
-//            Log.d("test Res Parser", restaurant.getId() + "," + restaurant.getName() + ", "
-//                    + restaurant.getCity() + ", " + restaurant.getStreet() + ", "
-//                    + restaurant.getRank() + ", " + restaurant.getCost() + "\n");
-//        }
-        MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
-        myqh.startQuery(cityName, catArr, cost, timeDay, hour*100 + minute);
-//        MiniYelpSQLiteHelper helper = new MiniYelpSQLiteHelper(this);
-//        SQLiteDatabase db = helper.getReadableDatabase();
-//        db.rawQuery( "SELECT * FROM " +
-//                RestaurantTable.TABLE_NAME + " JOIN " + RestaurantsCategoriesTable.TABLE_NAME
-//                + " ON " + RestaurantTable.COLUMN_ID + " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + " INNER JOIN " + CategoryTable.TABLE_NAME + " ON T1._id = CategoryTable.restaurant_id", null);
-    }
-
-//    private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
-//
-//        Restaurant res = new Restaurant("", cityName, 1, cost, "res1", 3);
-//        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2", 5);
-//
-//        try {
-////        RestaurantTime rt = new RestaurantTime();
-////        rt.setDay(day);
-////        rt.setStartTime(time);
-////        rt.setEndTime(time + 100);
-//            RestaurantTable rtb = new RestaurantTable(this);
-//            rtb.open();
-//            rtb.createRestaurant(res);
-//            rtb.createRestaurant(res2);
-//            //rtb.close();
-//            List<Restaurant> resList = rtb.getAllRestaurants();
-//            rtb.close();
-//            for (Restaurant restaurant:resList) {
-//                Log.d("test Res", restaurant.getId() + "," + restaurant.getName() + ", "
-//                        + restaurant.getCity() + ", " + restaurant.getCost() + "\n");
-//            }
-//            CategoryTable ct = new CategoryTable(this);
-//            ct.open();
-//            for (String cn : catArr) {
-//                ct.createCategory(new Category(cn));
-//            }
-//
-//            List<Category> catList = ct.getAllCategories();
-//            for (Category cat:catList) {
-//                Log.d("test Cat", cat.getId() + "," + cat.getTitle() + "\n");
-//            }
-//            ct.close();
-//
-//            RestaurantTimesTable rtt = new RestaurantTimesTable(this);
-//            rtt.open();
-//            rtt.createRestaurantTime(new RestaurantTime(res.getId(), day, time, time + 100));
-//            rtt.close();
-//
-//        } catch (Exception e) {
-//            Log.e("test Res error", e.toString());
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -56,6 +56,7 @@ public class MiniYelpQueryHandler {
                              CategoryTable.TABLE_NAME + " ON " +
                              CategoryTable.COLUMN_ID + " = " +
                              RestaurantsCategoriesTable.COLUMN_CATEGORY_ID);
+
         for (int i = 0; i < catArr.length; i++) {
             String category = catArr[i];
             if (category.equals("")) {
@@ -122,18 +123,20 @@ public class MiniYelpQueryHandler {
             e.printStackTrace();
         }
 
-
+        if (!catArr[0].equals("")) {
+            printRestaurantCategoriesTable();
+        }
 
         return results;
     }
 
     public void printRestaurantCategoriesTable() {
-        String queryString = "SELECT * FROM ((SELECT * FROM " + RestaurantTable.TABLE_NAME + " JOIN " +
+        String queryString = "SELECT * FROM ((" + RestaurantTable.TABLE_NAME + " JOIN " +
                 RestaurantsCategoriesTable.TABLE_NAME + " ON " + RestaurantTable.COLUMN_ID +
                 " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + ") AS T1";
-        queryString += " JOIN (SELECT * FROM T1 JOIN " +
+        queryString += " JOIN " +
                 CategoryTable.TABLE_NAME + " ON " + RestaurantsCategoriesTable.COLUMN_CATEGORY_ID +
-                " = " + CategoryTable.COLUMN_ID + "))";
+                " = " + CategoryTable.TABLE_NAME + "." + CategoryTable.COLUMN_ID + ")";
 
         List<String> results = new ArrayList<String>();
         try {
@@ -142,7 +145,7 @@ public class MiniYelpQueryHandler {
 
             while (!cursor.isAfterLast()) {
                 String[] strArr = cursor.getColumnNames();
-                Log.d("Col name", Arrays.toString(strArr));
+                //Log.d("Col name", Arrays.toString(strArr));
                 String result = "";
                 for (int i = 0; i < strArr.length; i++) {
                     result += cursor.getString(i) + " ";
@@ -154,7 +157,7 @@ public class MiniYelpQueryHandler {
             cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        };
 
     }
 }
