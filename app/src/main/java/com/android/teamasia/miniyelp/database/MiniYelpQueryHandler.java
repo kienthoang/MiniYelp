@@ -49,7 +49,7 @@ public class MiniYelpQueryHandler {
         str = "(" + str + ")";
         Log.d("test q", str);
 
-        if (catJoined) {
+//        if (catJoined) {
             SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
             catBuilder.setTables(RestaurantsCategoriesTable.TABLE_NAME + " JOIN " +
                                  CategoryTable.TABLE_NAME + " ON " +
@@ -69,9 +69,9 @@ public class MiniYelpQueryHandler {
             str += " AS T1";
             str2 += " AS T2";
             str = str + " INNER JOIN " + str2 + " ON T1._id = T2.restaurant_id";
-            str = "SELECT * FROM " + str;
+            str = "SELECT * FROM " + str + " GROUP BY _id";
             Log.d("test cat 2", str);
-        }
+//        }
         if (timeJoined) {
 
 
@@ -86,7 +86,7 @@ public class MiniYelpQueryHandler {
             while (!cursor.isAfterLast()) {
                 String[] strArr = cursor.getColumnNames();
                 for (int i = 0; i < strArr.length; i++) {
-                    outputStr += cursor.getString(i);
+                    outputStr += cursor.getString(i) + " ";
                 }
                 outputStr += "\n";
                 cursor.moveToNext();
