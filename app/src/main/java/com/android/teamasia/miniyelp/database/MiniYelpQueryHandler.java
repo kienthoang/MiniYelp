@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import java.util.*;
+
 /**
  * Created by DELL on 9/22/2014.
  */
@@ -20,64 +22,65 @@ public class MiniYelpQueryHandler {
     }
 
     public void startQuery(String cityName, String[]catArr, int cost, String day, int time) {
-
-        boolean catJoined = false;
-        boolean timeJoined = false;
-
-        boolean noMainClause = true;
-
         SQLiteQueryBuilder mainBuilder = new SQLiteQueryBuilder();
         mainBuilder.setTables(RestaurantTable.TABLE_NAME);
 
-        if (!cityName.equals("")) {
-            mainBuilder.appendWhere(RestaurantTable.COLUMN_CITY + " = '" + cityName + "'");
-            noMainClause = false;
-        }
-        if (catArr.length > 0) {
-            catJoined = true;
-        }
-        if (cityName.equals("") && cost > 0) {
-            mainBuilder.appendWhere(RestaurantTable.COLUMN_COST + "=" + cost);
-            noMainClause = false;
-        } else if (cost > 0) {
-            mainBuilder.appendWhere(" AND " + RestaurantTable.COLUMN_COST + " = " + cost);
+        // Add the WHERE clauses for the cost and city;
+        List<String> clauses = new ArrayList<String>();
+        if (cost > 0) {
+            clauses.add(RestaurantTable.COLUMN_COST + " = " + cost);
         }
 
-        String str = mainBuilder.buildQuery(
+        if (!cityName.equals("")) {
+            clauses.add(RestaurantTable.COLUMN_CITY + " = '" + cityName + "'");
+        }
+
+        for (int i = 0; i < clauses.size(); i++) {
+            String clause = clauses.get(i);
+            if (i < clauses.size() - 1) {
+                clause += " AND ";
+            }
+            mainBuilder.appendWhere(clause);
+        }
+
+        String restaurantsQuery = mainBuilder.buildQuery(
                 new String[]{"*"},
                 null, null, null, null, null, null);
-        str = "(" + str + ")";
-        Log.d("test q", str);
+        restaurantsQuery = "(" + restaurantsQuery + ") AS T1";
 
-//        if (catJoined) {
-            SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
-            catBuilder.setTables(RestaurantsCategoriesTable.TABLE_NAME + " JOIN " +
-                                 CategoryTable.TABLE_NAME + " ON " +
-                                 CategoryTable.COLUMN_ID + " = " +
-                                 RestaurantsCategoriesTable.COLUMN_CATEGORY_ID);
-            if (!catArr[0].equals("")) {
-                catBuilder.appendWhere(CategoryTable.COLUMN_NAME + " = '" + catArr[0] + "'");
+        // Queries for categories that match the search.
+        SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
+        catBuilder.setTables(RestaurantsCategoriesTable.TABLE_NAME + " JOIN " +
+                             CategoryTable.TABLE_NAME + " ON " +
+                             CategoryTable.COLUMN_ID + " = " +
+                             RestaurantsCategoriesTable.COLUMN_CATEGORY_ID);
+        for (int i = 0; i < catArr.length; i++) {
+            String category = catArr[i];
+            if (category.equals("")) {
+                continue;
             }
-            for (int i = 1; i < catArr.length; i++) {
-                catBuilder.appendWhere(" AND " + CategoryTable.COLUMN_NAME + " = '" + catArr[i] + "'");
-            }
-            String str2 = catBuilder.buildQuery(
-                    new String[]{"*"},
-                    null, null, null, null, null, null);
-            str2 = "(" + str2 + ")";
-            Log.d("test cat", str2);
-            str += " AS T1";
-            str2 += " AS T2";
-            str = str + " INNER JOIN " + str2 + " ON T1._id = T2.restaurant_id";
-            str = "SELECT * FROM " + str + " GROUP BY _id";
-            Log.d("test cat 2", str);
-//        }
-        if (timeJoined) {
 
+            String whereClause = CategoryTable.COLUMN_NAME + " = '" + catArr[i] + "'";
+            if (i < catArr.length - 1) {
+                whereClause += " OR ";
+            }
+            catBuilder.appendWhere(whereClause);
         }
+        String categoryQuery = catBuilder.buildQuery(
+                new String[]{"*"},
+                null, null, null, null, null, null);
+        categoryQuery = "(" + categoryQuery + ") AS T2";
+
+
+        // Join the queries for the restaurants and categories to build the main query.
+        String query = "SELECT * FROM " +
+                restaurantsQuery + " INNER JOIN " + categoryQuery + " ON T1._id = T2.restaurant_id" +
+                " GROUP BY _id";
+        Log.d("test cat 2", query);
+
+        // TODO(kienhoang): Parse the results into a list of Restaurant objects.
         try {
-            Cursor cursor = database.rawQuery(str, null);
-            //Cursor cursor = database.rawQuery("SELECT * " + " FROM " + RestaurantTable.TABLE_NAME + " WHERE (" + RestaurantTable.COLUMN_CITY + " = '" + cityName + "')", null);
+            Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
 
             String outputStr = "";
@@ -95,10 +98,5 @@ public class MiniYelpQueryHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        if (catJoined)
-
-//        if (!day.equals("") || time > 0) {
-//            timeJoined = true;
-//        }
     }
 }
