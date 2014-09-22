@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,13 @@ public class CategoryTable {
             long catId = database.insertOrThrow(TABLE_NAME, null, values);
             category.setId(catId);
         } catch (android.database.sqlite.SQLiteConstraintException e) {
-            // do nothing, non-unique data shouldn't be added
+            SQLiteQueryBuilder catBuilder = new SQLiteQueryBuilder();
+            catBuilder.appendWhere(COLUMN_NAME + " = '" + category.getTitle() + "'");
+            String query = catBuilder.buildQuery(new String[]{"*"}, null, null, null, null, null, null);
+            query = "SELECT _id FROM (" + query + ")";
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            category.setId(cursor.getLong(0));
         }
         return category;
     }
