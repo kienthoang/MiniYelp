@@ -78,8 +78,8 @@ public class MiniYelpQueryHandler {
             timeWhereClauses.add(RestaurantTimesTable.COLUMN_DAY + " = '" + day + "'");
         }
         if (time > 0) {
-            timeWhereClauses.add(RestaurantTimesTable.COLUMN_START_TIME + " >= " + time);
-            timeWhereClauses.add(RestaurantTimesTable.COLUMN_END_TIME + " <= " + time);
+            timeWhereClauses.add(RestaurantTimesTable.COLUMN_START_TIME + " <= " + time);
+            timeWhereClauses.add(RestaurantTimesTable.COLUMN_END_TIME + " >= " + time);
         }
         for (int i = 0; i < timeWhereClauses.size(); i++) {
             String whereClause = timeWhereClauses.get(i);
