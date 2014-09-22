@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.ArrayAdapter;
+
+import com.android.teamasia.miniyelp.database.MiniYelpQueryHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,13 @@ public class ResultsActivity extends ListActivity {
 
     private String city;
     private String[] cat_arr;
-    private double cost;
+    private int cost;
     private String day;
     private int time;
     private boolean searchByTime;
-
+    /*
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +45,17 @@ public class ResultsActivity extends ListActivity {
 
         city = getIntent().getStringExtra(EXTRA_CITY);
         cat_arr = getIntent().getStringArrayExtra(EXTRA_CAT_ARR);
-        cost = getIntent().getDoubleExtra(EXTRA_COST, -1);
+        cost = getIntent().getIntExtra(EXTRA_COST, -1);
         day = getIntent().getStringExtra(EXTRA_DAY);
         time = getIntent().getIntExtra(EXTRA_TIME, -1);
         searchByTime = getIntent().getBooleanExtra(EXTRA_SEARCH_BY_TIME, false);
 
-        List<String> results = new ArrayList<String>();
+        MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
+        List<String> results = myqh.startQuery(city, cat_arr, cost, day, time);
+        Log.d("Result list size: ", Integer.toString(results.size()));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, results);
         setListAdapter(adapter);
-        adapter.add("CS320");
-        adapter.add("Databases");
-        adapter.add("TeamAsia");
         adapter.notifyDataSetChanged();
     }
 
