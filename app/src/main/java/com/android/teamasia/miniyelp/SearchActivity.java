@@ -142,28 +142,34 @@ public class SearchActivity extends ActionBarActivity {
                 }
             }
         });
-//        Button searchButton = (Button) findViewById(R.id.search_button);
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString().toLowerCase();
-//                String[] catArr = new String[categoryList.size()];
-//                for (int i = 0; i < catArr.length; i++) {
-//                    catArr[i] = categoryList.get(i).getText().toString().toLowerCase();
-//                }
-//                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
-//                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
-//                int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
-//                Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
-//                i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
-//                i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
-//                i.putExtra(ResultsActivity.EXTRA_COST, cost);
-//                i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
-//                i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
-//                i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
-//                startActivity(i);
-//            }
-//        });
+        Button searchButton = (Button) findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString().toLowerCase();
+                String[] catArr = new String[categoryList.size()];
+                for (int i = 0; i < catArr.length; i++) {
+                    catArr[i] = categoryList.get(i).getText().toString().toLowerCase();
+                }
+                int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
+                int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
+                int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
+                int time;
+                if(searchByTime) {
+                    time = hour * 100 + minute;
+                } else {
+                    time = -1;
+                }
+                Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
+                i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
+                i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
+                i.putExtra(ResultsActivity.EXTRA_COST, cost);
+                i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
+                i.putExtra(ResultsActivity.EXTRA_TIME, time);
+                i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
+                startActivity(i);
+            }
+        });
     }
 
     public void startQuery(View view) {
