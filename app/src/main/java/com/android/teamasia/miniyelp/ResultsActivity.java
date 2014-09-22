@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.ArrayAdapter;
 
+import com.android.teamasia.miniyelp.database.MiniYelpQueryHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class ResultsActivity extends ListActivity {
         day = getIntent().getStringExtra(EXTRA_DAY);
         time = getIntent().getIntExtra(EXTRA_TIME, -1);
         searchByTime = getIntent().getBooleanExtra(EXTRA_SEARCH_BY_TIME, false);
+
+        MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
+        myqh.startQuery(city, cat_arr, (int)cost, day, time);
 
         List<String> results = new ArrayList<String>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,

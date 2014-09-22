@@ -197,56 +197,56 @@ public class SearchActivity extends ActionBarActivity {
 //        }
         MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
         myqh.startQuery(cityName, catArr, cost, timeDay, hour*100 + minute);
-        MiniYelpSQLiteHelper helper = new MiniYelpSQLiteHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        db.rawQuery( "SELECT * FROM " +
-                RestaurantTable.TABLE_NAME + " JOIN " + RestaurantsCategoriesTable.TABLE_NAME
-                + " ON " + RestaurantTable.COLUMN_ID + " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + " INNER JOIN " + CategoryTable.TABLE_NAME + " ON T1._id = CategoryTable.restaurant_id", null);
+//        MiniYelpSQLiteHelper helper = new MiniYelpSQLiteHelper(this);
+//        SQLiteDatabase db = helper.getReadableDatabase();
+//        db.rawQuery( "SELECT * FROM " +
+//                RestaurantTable.TABLE_NAME + " JOIN " + RestaurantsCategoriesTable.TABLE_NAME
+//                + " ON " + RestaurantTable.COLUMN_ID + " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + " INNER JOIN " + CategoryTable.TABLE_NAME + " ON T1._id = CategoryTable.restaurant_id", null);
     }
 
-    private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
-
-        Restaurant res = new Restaurant("", cityName, 1, cost, "res1", 3);
-        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2", 5);
-
-        try {
-//        RestaurantTime rt = new RestaurantTime();
-//        rt.setDay(day);
-//        rt.setStartTime(time);
-//        rt.setEndTime(time + 100);
-            RestaurantTable rtb = new RestaurantTable(this);
-            rtb.open();
-            rtb.createRestaurant(res);
-            rtb.createRestaurant(res2);
-            //rtb.close();
-            List<Restaurant> resList = rtb.getAllRestaurants();
-            rtb.close();
-            for (Restaurant restaurant:resList) {
-                Log.d("test Res", restaurant.getId() + "," + restaurant.getName() + ", "
-                        + restaurant.getCity() + ", " + restaurant.getCost() + "\n");
-            }
-            CategoryTable ct = new CategoryTable(this);
-            ct.open();
-            for (String cn : catArr) {
-                ct.createCategory(new Category(cn));
-            }
-
-            List<Category> catList = ct.getAllCategories();
-            for (Category cat:catList) {
-                Log.d("test Cat", cat.getId() + "," + cat.getTitle() + "\n");
-            }
-            ct.close();
-
-            RestaurantTimesTable rtt = new RestaurantTimesTable(this);
-            rtt.open();
-            rtt.createRestaurantTime(new RestaurantTime(res.getId(), day, time, time + 100));
-            rtt.close();
-
-        } catch (Exception e) {
-            Log.e("test Res error", e.toString());
-            e.printStackTrace();
-        }
-    }
+//    private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
+//
+//        Restaurant res = new Restaurant("", cityName, 1, cost, "res1", 3);
+//        Restaurant res2 = new Restaurant("", cityName, 2, cost + 1, "res2", 5);
+//
+//        try {
+////        RestaurantTime rt = new RestaurantTime();
+////        rt.setDay(day);
+////        rt.setStartTime(time);
+////        rt.setEndTime(time + 100);
+//            RestaurantTable rtb = new RestaurantTable(this);
+//            rtb.open();
+//            rtb.createRestaurant(res);
+//            rtb.createRestaurant(res2);
+//            //rtb.close();
+//            List<Restaurant> resList = rtb.getAllRestaurants();
+//            rtb.close();
+//            for (Restaurant restaurant:resList) {
+//                Log.d("test Res", restaurant.getId() + "," + restaurant.getName() + ", "
+//                        + restaurant.getCity() + ", " + restaurant.getCost() + "\n");
+//            }
+//            CategoryTable ct = new CategoryTable(this);
+//            ct.open();
+//            for (String cn : catArr) {
+//                ct.createCategory(new Category(cn));
+//            }
+//
+//            List<Category> catList = ct.getAllCategories();
+//            for (Category cat:catList) {
+//                Log.d("test Cat", cat.getId() + "," + cat.getTitle() + "\n");
+//            }
+//            ct.close();
+//
+//            RestaurantTimesTable rtt = new RestaurantTimesTable(this);
+//            rtt.open();
+//            rtt.createRestaurantTime(new RestaurantTime(res.getId(), day, time, time + 100));
+//            rtt.close();
+//
+//        } catch (Exception e) {
+//            Log.e("test Res error", e.toString());
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
