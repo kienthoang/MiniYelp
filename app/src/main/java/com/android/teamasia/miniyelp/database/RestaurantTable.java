@@ -65,6 +65,7 @@ public class RestaurantTable {
         return restaurants;
     }
 
+
     private Restaurant cursorToRestaurant(Cursor cursor) {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(cursor.getLong(0));
