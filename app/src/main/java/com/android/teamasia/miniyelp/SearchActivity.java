@@ -2,6 +2,7 @@ package com.android.teamasia.miniyelp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -189,7 +190,11 @@ public class SearchActivity extends ActionBarActivity {
 //        }
         MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
         myqh.startQuery(cityName, catArr, cost, timeDay, hour*100 + minute);
-
+        MiniYelpSQLiteHelper helper = new MiniYelpSQLiteHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        db.rawQuery( "SELECT * FROM " +
+                RestaurantTable.TABLE_NAME + " JOIN " + RestaurantsCategoriesTable.TABLE_NAME
+                + " ON " + RestaurantTable.COLUMN_ID + " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + " INNER JOIN " + CategoryTable.TABLE_NAME + " ON T1._id = CategoryTable.restaurant_id", null);
     }
 
     private void testTable(String cityName, String[]catArr, int cost, String day, int time) {
