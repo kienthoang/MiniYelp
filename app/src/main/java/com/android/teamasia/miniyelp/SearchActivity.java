@@ -153,12 +153,18 @@ public class SearchActivity extends ActionBarActivity {
                 int cost = (int) ((RatingBar) findViewById(R.id.ratingBar)).getRating();
                 int hour = ((TimePicker) findViewById(R.id.time_picker)).getCurrentHour();
                 int minute = ((TimePicker) findViewById(R.id.time_picker)).getCurrentMinute();
+                int time;
+                if(searchByTime) {
+                    time = hour * 100 + minute;
+                } else {
+                    time = -1;
+                }
                 Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
                 i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
                 i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
                 i.putExtra(ResultsActivity.EXTRA_COST, cost);
                 i.putExtra(ResultsActivity.EXTRA_DAY, timeDay);
-                i.putExtra(ResultsActivity.EXTRA_TIME, hour * 100 + minute);
+                i.putExtra(ResultsActivity.EXTRA_TIME, time);
                 i.putExtra(ResultsActivity.EXTRA_SEARCH_BY_TIME, searchByTime);
                 startActivity(i);
             }
