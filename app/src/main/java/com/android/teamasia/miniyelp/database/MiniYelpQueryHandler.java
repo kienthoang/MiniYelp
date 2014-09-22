@@ -20,7 +20,7 @@ public class MiniYelpQueryHandler {
         database = helper.getReadableDatabase();
     }
 
-    public void startQuery(String cityName, String[]catArr, int cost, String day, int time) {
+    public List<String> startQuery(String cityName, String[]catArr, int cost, String day, int time) {
         SQLiteQueryBuilder mainBuilder = new SQLiteQueryBuilder();
         mainBuilder.setTables(RestaurantTable.TABLE_NAME);
 
@@ -77,9 +77,9 @@ public class MiniYelpQueryHandler {
         if (!day.equals("")) {
             timeWhereClauses.add(RestaurantTimesTable.COLUMN_DAY + " = '" + day + "'");
         }
-        if (time < 0) {
-            timeWhereClauses.add(RestaurantTimesTable.COLUMN_START_TIME + " <= " + time);
-            timeWhereClauses.add(RestaurantTimesTable.COLUMN_END_TIME + " >= " + time);
+        if (time > 0) {
+            timeWhereClauses.add(RestaurantTimesTable.COLUMN_START_TIME + " >= " + time);
+            timeWhereClauses.add(RestaurantTimesTable.COLUMN_END_TIME + " <= " + time);
         }
         for (int i = 0; i < timeWhereClauses.size(); i++) {
             String whereClause = timeWhereClauses.get(i);
@@ -94,29 +94,30 @@ public class MiniYelpQueryHandler {
 
         // Join the queries for the restaurants and categories to build the main query.
         String query = restaurantsQuery + " INNER JOIN " + categoryQuery + " ON T1._id = T2.restaurant_id";
-        query = "(" + query + ") AS T12";
+        query = "SELECT * FROM (" + query + ") AS T12";
         query += " INNER JOIN " + timeQuery + " ON T12._id = T3.restaurant_id GROUP BY _id";
         Log.d("test cat 2", query);
 
-        // TODO(kienhoang): Parse the results into a list of Restaurant objects.
+        // Result parsing.
+        List<String> results = new ArrayList<String>();
         try {
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
 
-            String outputStr = "";
-
             while (!cursor.isAfterLast()) {
                 String[] strArr = cursor.getColumnNames();
+                String result = "";
                 for (int i = 0; i < strArr.length; i++) {
-                    outputStr += cursor.getString(i) + " ";
+                    result += cursor.getString(i) + " ";
                 }
-                outputStr += "\n";
+                results.add(result);
                 cursor.moveToNext();
             }
             cursor.close();
-            Log.d("...", outputStr);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return results;
     }
 }

@@ -57,6 +57,7 @@ public class SearchActivity extends ActionBarActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
+        timePicker.setIs24HourView(true);
 
         MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
         Log.d("size", miniyelp.getDatabaseSize() + "");
