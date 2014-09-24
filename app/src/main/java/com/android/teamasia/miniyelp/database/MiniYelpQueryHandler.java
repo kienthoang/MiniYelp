@@ -9,11 +9,17 @@ import android.util.Log;
 import java.util.*;
 
 /**
- * Created by DELL on 9/22/2014.
+ * Created by Yiming Chen on 9/22/2014.
  */
+
 public class MiniYelpQueryHandler {
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper helper;
+
+//Table title:  name, street, city, cost, rank, reviewers, day, start_time, end_time, category_type
+//table width:   25     25     15    5     5       5        10     5           5           20
+
+    private final int[] lengthArr = new int[] {25,25,15,5,5,5,10,5,5,20};
 
     public MiniYelpQueryHandler(Context context) {
         helper = new MiniYelpSQLiteHelper(context);
@@ -70,7 +76,9 @@ public class MiniYelpQueryHandler {
             catBuilder.appendWhere(whereClause);
         }
         String categoryQuery = catBuilder.buildQuery(
-                new String[]{"*"},
+                new String[]{RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
+                             RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
+                             CategoryTable.COLUMN_NAME  + " AS category_type "},
                 null, null, null, null, null, null);
         categoryQuery = "(" + categoryQuery + ") AS T2";
 
@@ -93,12 +101,23 @@ public class MiniYelpQueryHandler {
             timeBuilder.appendWhere(whereClause);
         }
         String timeQuery = timeBuilder.buildQuery(
-                new String[]{"*"}, null, null, null, null, null, null);
+                new String[]{RestaurantTimesTable.COLUMN_DAY,
+                        RestaurantTimesTable.COLUMN_START_TIME,
+                        RestaurantTimesTable.COLUMN_END_TIME,
+                        RestaurantTimesTable.COLUMN_RESTAURANT_ID}, null, null, null, null, null, null);
         timeQuery = "(" + timeQuery + ") AS T3";
 
         // Join the queries for the restaurants and categories to build the main query.
         String query = restaurantsQuery + " INNER JOIN " + categoryQuery + " ON T1._id = T2.restaurant_id";
-        query = "SELECT * FROM (" + query + ") AS T12";
+        query = "SELECT " + RestaurantTable.COLUMN_NAME + ", " +
+                 RestaurantTable.COLUMN_STREET + ", " + RestaurantTable.COLUMN_CITY + ", " +
+                 RestaurantTable.COLUMN_COST + ", " + RestaurantTable.COLUMN_RANK + ", " +
+                 RestaurantTable.COLUMN_REVIEWERS + ", " +
+                 RestaurantTimesTable.COLUMN_DAY + ", " +
+                 RestaurantTimesTable.COLUMN_START_TIME + ", " +
+                 RestaurantTimesTable.COLUMN_END_TIME +
+                ", category_type "
+              + " FROM (" + query + ") AS T12";
         query += " INNER JOIN " + timeQuery + " ON T12._id = T3.restaurant_id " +
                 "GROUP BY _id ORDER BY " + RestaurantTable.COLUMN_CITY + " ASC";
         Log.d("test cat 2", query);
@@ -109,11 +128,16 @@ public class MiniYelpQueryHandler {
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
 
+            String[] strArr = cursor.getColumnNames();
+            String columnTitles =  Arrays.toString(strArr);
+            columnTitles = columnTitles.substring(1, columnTitles.length() - 1);
+            results.add(columnTitles);
+
             while (!cursor.isAfterLast()) {
-                String[] strArr = cursor.getColumnNames();
+
                 String result = "";
                 for (int i = 0; i < strArr.length; i++) {
-                    result += cursor.getString(i) + " ";
+                    result += cursor.getString(i) + " | ";
                 }
                 Log.d("check result", result);
                 results.add(result);
@@ -124,14 +148,10 @@ public class MiniYelpQueryHandler {
             e.printStackTrace();
         }
 
-        if (!catArr[0].equals("")) {
-            printRestaurantCategoriesTable();
-        }
-
         return results;
     }
 
-    public void printRestaurantCategoriesTable() {
+    private void printRestaurantCategoriesTable() {
         String queryString = "SELECT * FROM ((" + RestaurantTable.TABLE_NAME + " JOIN " +
                 RestaurantsCategoriesTable.TABLE_NAME + " ON " + RestaurantTable.COLUMN_ID +
                 " = " + RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID + ") AS T1";
