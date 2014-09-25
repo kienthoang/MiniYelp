@@ -16,10 +16,6 @@ public class MiniYelpQueryHandler {
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper helper;
 
-    //Table title:  name, street, city, cost, rank, reviewers, day, start_time, end_time, category_type
-    //table width:   25     25     15    5     5       5        10     5           5           20
-    private final int[] lengthArr = new int[] {25,25,15,5,5,5,10,5,5,20};
-
     /**
      * Constructor
      * @param context The application context
