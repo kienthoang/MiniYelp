@@ -20,18 +20,34 @@ public class RestaurantsCategoriesTable {
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper dbHelper;
 
+    /**
+     * Constructor
+     * @param context The application context
+     */
     public RestaurantsCategoriesTable(Context context) {
         dbHelper = new MiniYelpSQLiteHelper(context);
     }
 
+    /**
+     * Opens the database
+     * @throws SQLException
+     */
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Closes the database
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     * Puts restaurant-category pair in table
+     * @param restaurantsCategories Restaurant-category pair
+     * @return Restaurant-category pair
+     */
     public RestaurantsCategories createRestaurantsCategories(RestaurantsCategories restaurantsCategories) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_CATEGORY_ID, restaurantsCategories.getCategoryId());

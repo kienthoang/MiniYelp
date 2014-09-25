@@ -39,6 +39,11 @@ public class RestaurantTable {
         dbHelper.close();
     }
 
+    /**
+     * Puts restaurant in table
+     * @param restaurant Restaurant
+     * @return Resturant
+     */
     public Restaurant createRestaurant(Restaurant restaurant) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, restaurant.getName());
@@ -52,6 +57,10 @@ public class RestaurantTable {
         return restaurant;
     }
 
+    /**
+     * Gets all restaurants
+     * @return List of restaurants
+     */
     public List<Restaurant> getAllRestaurants() {
         List<Restaurant> restaurants = new ArrayList<Restaurant>();
         Cursor cursor = database.query(TABLE_NAME, allColumns, null, null, null, null, null);
@@ -67,7 +76,11 @@ public class RestaurantTable {
         return restaurants;
     }
 
-
+    /**
+     * Converts cursor to restaurant
+     * @param cursor Cursor
+     * @return Converted restaurant
+     */
     private Restaurant cursorToRestaurant(Cursor cursor) {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(cursor.getLong(0));

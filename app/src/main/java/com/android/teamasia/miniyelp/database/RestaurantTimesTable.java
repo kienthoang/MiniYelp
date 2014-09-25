@@ -23,18 +23,34 @@ public class RestaurantTimesTable {
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper dbHelper;
 
+    /**
+     * Constructor
+     * @param context The application context
+     */
     public RestaurantTimesTable(Context context) {
         dbHelper = new MiniYelpSQLiteHelper(context);
     }
 
+    /**
+     * Opens the database
+     * @throws SQLException
+     */
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Closes the database
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     * Inserts restaurant-time pair into table
+     * @param restaurantTime Restaurant-time pair
+     * @return Restaurant-time pair
+     */
     public RestaurantTime createRestaurantTime(RestaurantTime restaurantTime) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_DAY, restaurantTime.getDay());

@@ -16,24 +16,37 @@ public class MiniYelpQueryHandler {
     private SQLiteDatabase database;
     private MiniYelpSQLiteHelper helper;
 
-//Table title:  name, street, city, cost, rank, reviewers, day, start_time, end_time, category_type
-//table width:   25     25     15    5     5       5        10     5           5           20
-
+    //Table title:  name, street, city, cost, rank, reviewers, day, start_time, end_time, category_type
+    //table width:   25     25     15    5     5       5        10     5           5           20
     private final int[] lengthArr = new int[] {25,25,15,5,5,5,10,5,5,20};
 
+    /**
+     * Constructor
+     * @param context The application context
+     */
     public MiniYelpQueryHandler(Context context) {
         helper = new MiniYelpSQLiteHelper(context);
         database = helper.getReadableDatabase();
     }
 
+    /**
+     * Starts a query
+     * @param cityName City
+     * @param catArr List of categories
+     * @param cost Cost
+     * @param day Day of week
+     * @param time Time
+     * @return List of results
+     */
     public List<String> startQuery(String cityName, String[]catArr, int cost, String day, int time) {
 
-        Log.d("cehck param", cityName + "\n" + Arrays.toString(catArr) + "\n" + cost + "\n" + day + "^\n" + time);
+        Log.d("check param", cityName + "\n" + Arrays.toString(catArr) + "\n" + cost + "\n" + day + "^\n" + time);
 
+        // query builder
         SQLiteQueryBuilder mainBuilder = new SQLiteQueryBuilder();
         mainBuilder.setTables(RestaurantTable.TABLE_NAME);
 
-        // Add the WHERE clauses for the cost and city;
+        // Add the WHERE clauses for the cost and city
         List<String> clauses = new ArrayList<String>();
         if (cost > 0) {
             clauses.add(RestaurantTable.COLUMN_COST + " = " + cost);
@@ -51,6 +64,7 @@ public class MiniYelpQueryHandler {
             mainBuilder.appendWhere(clause);
         }
 
+        // build query
         String restaurantsQuery = mainBuilder.buildQuery(
                 new String[]{"*"},
                 null, null, null, null, null, null);
@@ -75,6 +89,7 @@ public class MiniYelpQueryHandler {
             }
             catBuilder.appendWhere(whereClause);
         }
+
         String categoryQuery = catBuilder.buildQuery(
                 new String[]{RestaurantsCategoriesTable.COLUMN_CATEGORY_ID,
                              RestaurantsCategoriesTable.COLUMN_RESTAURANT_ID,
@@ -120,7 +135,7 @@ public class MiniYelpQueryHandler {
               + " FROM (" + query + ") AS T12";
         query += " INNER JOIN " + timeQuery + " ON T12._id = T3.restaurant_id " +
                 "GROUP BY _id ORDER BY " + RestaurantTable.COLUMN_CITY + " ASC, " +
-                RestaurantTable.COLUMN_RANK + " DESC, " + RestaurantTable.COLUMN_COST + " ASC";
+                RestaurantTable.COLUMN_RANK + " DESC, " + RestaurantTable.COLUMN_COST + " ASC" ;
         Log.d("test cat 2", query);
 
         // Result parsing.
@@ -130,9 +145,6 @@ public class MiniYelpQueryHandler {
             cursor.moveToFirst();
 
             String[] columnTitles = cursor.getColumnNames();
-            //String columnTitles =  Arrays.toString(strArr);
-            //columnTitles = columnTitles.substring(1, columnTitles.length() - 1);
-            //results.add(columnTitles);
 
             while (!cursor.isAfterLast()) {
 
@@ -154,6 +166,7 @@ public class MiniYelpQueryHandler {
         return results;
     }
 
+    // Test method for query, not used in actual app
     private void printRestaurantCategoriesTable() {
         String queryString = "SELECT * FROM ((" + RestaurantTable.TABLE_NAME + " JOIN " +
                 RestaurantsCategoriesTable.TABLE_NAME + " ON " + RestaurantTable.COLUMN_ID +

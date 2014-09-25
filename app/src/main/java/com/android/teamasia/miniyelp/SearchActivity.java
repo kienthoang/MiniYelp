@@ -48,24 +48,27 @@ public class SearchActivity extends ActionBarActivity {
     private String timeDay;
     private boolean searchByTime;
 
-
+    /**
+     * Creates the SearchActivity
+     * @param savedInstanceState Previously saved instance of this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // disable soft keyboard opening up for first TextView on launch
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        // 24-hour TimePicker
         final TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
         timePicker.setIs24HourView(true);
 
+        // instantiate our SQLiteHelper
         MiniYelpSQLiteHelper miniyelp = new MiniYelpSQLiteHelper(this);
         Log.d("size", miniyelp.getDatabaseSize() + "");
-//        if(miniyelp.getDatabaseSize() <= (5*1024)) {
-//            InputParser once = new InputParser(this);
-//            once.parseInputBlock("InputFile");
-//        }
 
+        // read input file
         try{
             RestaurantTable rt = new RestaurantTable(this);
             rt.open();
@@ -76,9 +79,10 @@ public class SearchActivity extends ActionBarActivity {
             }
         }
         catch(NullPointerException e){
-//            InputParser once = new InputParser(this);
-//            once.parseInputBlock("InputFile");
+            e.printStackTrace();
         }
+
+        // checkbox to enable/disable searching by time
         final CheckBox checkBox = (CheckBox) findViewById(R.id.time_picker_checkBox);
         checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton c, boolean b) {
@@ -93,9 +97,10 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
 
+        // application context
         context = this.getApplicationContext();
 
-        // spinner
+        // Spinner to select day of week
         Spinner spinner = (Spinner) findViewById(R.id.daySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.day_array, android.R.layout.simple_spinner_item);
@@ -116,6 +121,7 @@ public class SearchActivity extends ActionBarActivity {
         // add the first item into the category list
         categoryList.add((EditText) findViewById(R.id.category_item));
         Button addButton =(Button) findViewById(R.id.add_button);
+
         // add new lines for multiple categories
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +136,9 @@ public class SearchActivity extends ActionBarActivity {
                 categoryList.add(newCategory);
             }
         });
+
+        // remove excessive lines of category
         Button removeButton = (Button) findViewById(R.id.remove_button);
-        // remove excessive lines of category.
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,11 +150,13 @@ public class SearchActivity extends ActionBarActivity {
                 }
             }
         });
+
+        // search for restaurants
         Button searchButton = (Button) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // get all user input
                 String cityName = ((EditText) findViewById(R.id.cityName)).getText().toString().toLowerCase();
                 String[] catArr = new String[categoryList.size()];
                 for (int i = 0; i < catArr.length; i++) {
@@ -162,6 +171,7 @@ public class SearchActivity extends ActionBarActivity {
                 } else {
                     time = -1;
                 }
+                // pass to ResultsActivity
                 Intent i = new Intent(SearchActivity.this, ResultsActivity.class);
                 i.putExtra(ResultsActivity.EXTRA_CITY, cityName);
                 i.putExtra(ResultsActivity.EXTRA_CAT_ARR, catArr);
@@ -174,6 +184,11 @@ public class SearchActivity extends ActionBarActivity {
         });
     }
 
+    /**
+     * Creates options menu
+     * @param menu
+     * @return whether menu was created or not
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -181,6 +196,11 @@ public class SearchActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * Handles selection of items from options menu
+     * @param item
+     * @return whether option selection was successful or not
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

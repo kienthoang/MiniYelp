@@ -21,18 +21,33 @@ public class CategoryTable {
     private MiniYelpSQLiteHelper dbHelper;
     private String[] allColumns = {COLUMN_ID, COLUMN_NAME};
 
+    /**
+     * Constructor
+     * @param context The application context
+     */
     public CategoryTable(Context context) {
         dbHelper = new MiniYelpSQLiteHelper(context);
     }
 
+    /**
+     * Opens the database
+     */
     public void open() {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Closes the database
+     */
     public void close() {
         dbHelper.close();
     }
 
+    /**
+     * Creates a new category
+     * @param category Category string
+     * @return Created category
+     */
     public Category createCategory(Category category) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, category.getTitle());
@@ -52,6 +67,10 @@ public class CategoryTable {
         return category;
     }
 
+    /**
+     * Gets all categories
+     * @return All categories
+     */
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<Category>();
         Cursor cursor = database.query(TABLE_NAME, allColumns, null, null, null, null, null);
@@ -67,6 +86,11 @@ public class CategoryTable {
         return categories;
     }
 
+    /**
+     * Converts cursor to category
+     * @param cursor Cursor
+     * @return Category
+     */
     private Category cursorToCategories(Cursor cursor) {
         Category cat = new Category("");
         cat.setId(cursor.getLong(0));

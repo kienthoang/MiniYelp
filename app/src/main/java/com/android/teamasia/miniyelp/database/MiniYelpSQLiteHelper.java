@@ -81,16 +81,20 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
                 RestaurantTable.COLUMN_ID));
     }
 
-    /*
-    * Returns the database in use
-    * */
-
+    /**
+     * Returns database size
+     * @return Size of database
+     */
      public long getDatabaseSize(){
          long size = getReadableDatabase().getPageSize();
          close();
          return size;
     }
 
+    /**
+     * Creates database tables
+     * @param database Database
+     */
     @Override
     public void onCreate(SQLiteDatabase database) {
         createRestaurantTable(database);
@@ -101,6 +105,12 @@ public class MiniYelpSQLiteHelper extends SQLiteOpenHelper {
         //createReviewerTable(database);
     }
 
+    /**
+     * Upgrades database to new version
+     * @param db Database
+     * @param oldVersion Old version
+     * @param newVersion New version
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + RestaurantTable.TABLE_NAME);

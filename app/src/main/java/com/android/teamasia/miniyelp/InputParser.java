@@ -24,21 +24,34 @@ public class InputParser {
 
     private static Context context;
 
+    /**
+     * Driver method for input parser
+     * @param args Command-line arguments
+     */
     public static void main(String args[]){
         parseInputBlock("InputFile.txt");
     }
 
+    /**
+     * Constructor
+     * @param context The application context
+     */
     public InputParser(Context context) {
         this.context = context;
     }
 
+    /**
+     * Parses input file
+     * @param block File to be parsed
+     */
     public static void parseInputBlock(String block)  {
 
         try{
+            // open file
             AssetManager am = context.getAssets();
             InputStream is = am.open(block);
-//            File inputFile = new File(block);
             Scanner sc = new Scanner(is);
+
             // variables
             double rank =0;
             int cost = 0 ;
@@ -49,7 +62,7 @@ public class InputParser {
             int reviewers=0;
             String city= "";
 
-            //database table
+            // database table
             CategoryTable categorytable = new CategoryTable(context);
             RestaurantTable resturanttable = new RestaurantTable(context);
             RestaurantTimesTable resturanttimetable = new RestaurantTimesTable(context);
@@ -113,12 +126,11 @@ public class InputParser {
                     }
                 }
                 else{
-                    //create a new resturant
+                    //create a new restaurant
                     resturanttable.open();
                     Restaurant temp = new Restaurant(street, city, rank, cost, name, reviewers);
-                    ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
 
-                    //add resutrant to resturantable
+                    //add restaurant to restaurant table
                     Restaurant add  = resturanttable.createRestaurant(temp);
                     resturanttable.close();
                     // add all category to category table and also add to resturant-category table
@@ -151,9 +163,8 @@ public class InputParser {
             }
             resturanttable.open();
             Restaurant temp = new Restaurant(street, city, rank, cost, name, reviewers);
-            ////System.out.println("street: "+street + "  city:  " + city +  "  rank:   " + rank + "   cost:   " + cost + " name:   " + name);
 
-            //add restuarant to resturantable
+            //add restauarant to restaurant table
             Restaurant add  = resturanttable.createRestaurant(temp);
             resturanttable.close();
             // add all category to category table and also add to resturant-category table

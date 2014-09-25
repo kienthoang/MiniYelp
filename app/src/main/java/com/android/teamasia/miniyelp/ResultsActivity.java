@@ -35,14 +35,17 @@ public class ResultsActivity extends ListActivity {
     private String day;
     private int time;
     private boolean searchByTime;
-    /*
-     *
-     * */
+
+    /**
+     * Creates the ResultsActivity
+     * @param savedInstanceState Previously saved instance of this activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        // get user input from SearchActivity
         city = getIntent().getStringExtra(EXTRA_CITY);
         cat_arr = getIntent().getStringArrayExtra(EXTRA_CAT_ARR);
         cost = getIntent().getIntExtra(EXTRA_COST, -1);
@@ -50,15 +53,25 @@ public class ResultsActivity extends ListActivity {
         time = getIntent().getIntExtra(EXTRA_TIME, -1);
         searchByTime = getIntent().getBooleanExtra(EXTRA_SEARCH_BY_TIME, false);
 
+        // instantiate qury handler
         MiniYelpQueryHandler myqh = new MiniYelpQueryHandler(this);
+
+        // list of returned restaurants
         List<String> results = myqh.startQuery(city, cat_arr, cost, day, time);
         Log.d("Result list size: ", Integer.toString(results.size()));
+
+        // add results to ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, results);
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Creates options menu
+     * @param menu
+     * @return whether menu was created or not
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,6 +79,11 @@ public class ResultsActivity extends ListActivity {
         return true;
     }
 
+    /**
+     * Handles selection of items from options menu
+     * @param item
+     * @return whether option selection was successful or not
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
