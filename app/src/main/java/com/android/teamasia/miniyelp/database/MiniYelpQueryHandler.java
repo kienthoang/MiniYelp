@@ -128,17 +128,19 @@ public class MiniYelpQueryHandler {
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
 
-            String[] strArr = cursor.getColumnNames();
-            String columnTitles =  Arrays.toString(strArr);
-            columnTitles = columnTitles.substring(1, columnTitles.length() - 1);
-            results.add(columnTitles);
+            String[] columnTitles = cursor.getColumnNames();
+            //String columnTitles =  Arrays.toString(strArr);
+            //columnTitles = columnTitles.substring(1, columnTitles.length() - 1);
+            //results.add(columnTitles);
 
             while (!cursor.isAfterLast()) {
 
                 String result = "";
-                for (int i = 0; i < strArr.length; i++) {
-                    result += cursor.getString(i) + " | ";
+                for (int i = 0; i < columnTitles.length - 1; i++) {
+                    result += columnTitles[i] + ": " + cursor.getString(i) + "\n";
                 }
+                result += columnTitles[columnTitles.length - 1] + ": " +
+                          cursor.getString(columnTitles.length - 1);
                 Log.d("check result", result);
                 results.add(result);
                 cursor.moveToNext();
