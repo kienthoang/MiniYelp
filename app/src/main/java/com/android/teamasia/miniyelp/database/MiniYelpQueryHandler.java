@@ -119,7 +119,8 @@ public class MiniYelpQueryHandler {
                 ", category_type "
               + " FROM (" + query + ") AS T12";
         query += " INNER JOIN " + timeQuery + " ON T12._id = T3.restaurant_id " +
-                "GROUP BY _id ORDER BY " + RestaurantTable.COLUMN_CITY + " ASC";
+                "GROUP BY _id ORDER BY " + RestaurantTable.COLUMN_CITY + " ASC, " +
+                RestaurantTable.COLUMN_RANK + " DESC, " + RestaurantTable.COLUMN_COST + " ASC";
         Log.d("test cat 2", query);
 
         // Result parsing.
