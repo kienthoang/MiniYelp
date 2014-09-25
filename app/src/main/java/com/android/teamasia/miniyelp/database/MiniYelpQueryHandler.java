@@ -124,10 +124,13 @@ public class MiniYelpQueryHandler {
                  RestaurantTable.COLUMN_STREET + ", " + RestaurantTable.COLUMN_CITY + ", " +
                  RestaurantTable.COLUMN_COST + ", " + RestaurantTable.COLUMN_RANK + ", " +
                  RestaurantTable.COLUMN_REVIEWERS + ", " +
-                 RestaurantTimesTable.COLUMN_DAY + ", " +
-                 RestaurantTimesTable.COLUMN_START_TIME + ", " +
-                 RestaurantTimesTable.COLUMN_END_TIME +
-                ", category_type "
+//"Group_Concat(DISTINCT " + RestaurantTimesTable.COLUMN_DAY + ") AS day, " +
+//"Group_Concat(DISTINCT " + RestaurantTimesTable.COLUMN_START_TIME + ") AS opening_time, " +
+//"Group_Concat(DISTINCT " + RestaurantTimesTable.COLUMN_END_TIME + ") AS closing_time, " +
+                "Group_Concat(DISTINCT coalesce(" + RestaurantTimesTable.COLUMN_DAY + ", ' ') || ' '|| " +
+                "coalesce(" + RestaurantTimesTable.COLUMN_START_TIME + ", ' ') || ' ' || " +
+                "coalesce(" + RestaurantTimesTable.COLUMN_END_TIME + ", ' ')) AS open_close_hour, " +
+                "Group_Concat(DISTINCT category_type) AS category_type"
               + " FROM (" + query + ") AS T12";
         query += " INNER JOIN " + timeQuery + " ON T12._id = T3.restaurant_id " +
                 "GROUP BY _id ORDER BY " + RestaurantTable.COLUMN_CITY + " ASC, " +
